@@ -44,7 +44,7 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
       )}
     >
       {/* Thumbnail */}
-      <div className="relative aspect-[16/10] overflow-hidden">
+      <div className="relative aspect-16/10 overflow-hidden">
         {project.thumbnail && (
           <Image
             src={project.thumbnail}

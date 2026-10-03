@@ -31,7 +31,7 @@ export function ProjectsSection() {
             {[...Array(6)].map((_, i) => (
               <div
                 key={i}
-                className="aspect-[16/10] rounded-2xl bg-neutral-900 animate-pulse"
+                className="aspect-16/10 rounded-2xl bg-neutral-900 animate-pulse"
               />
             ))}
           </div>

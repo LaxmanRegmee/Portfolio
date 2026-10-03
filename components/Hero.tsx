@@ -15,7 +15,7 @@ export function Hero({ onChatClick }: HeroProps) {
       aria-labelledby="hero-heading"
     >
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-neutral-950 via-neutral-900 to-neutral-950" />
+      <div className="absolute inset-0 bg-linear-to-b from-neutral-950 via-neutral-900 to-neutral-950" />
 
       {/* Subtle grid pattern */}
       <div
