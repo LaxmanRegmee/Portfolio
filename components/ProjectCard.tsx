@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ExternalLink, Play, Eye } from "lucide-react";
-import { FaGithub } from "react-icons/fa";
+import { Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Project {
@@ -24,6 +23,8 @@ interface Project {
     caseStudy?: string;
   };
   order: number;
+  company?: string;
+  meta?: string;
 }
 
 interface ProjectCardProps {
@@ -33,24 +34,28 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, priority = false }: ProjectCardProps) {
   const isVideo = project.type === "video";
+  const company = project.company || "Personal Project";
+  const meta = project.meta || `${project.type === "video" ? "Video" : "Image"} ${project.year}`;
 
   return (
-    <article
+    <a
+      href={project.links.caseStudy || project.links.demo || project.links.github || `#${project.slug}`}
       className={cn(
-        "group relative overflow-hidden rounded-2xl bg-neutral-900",
-        "border border-neutral-800 hover:border-neutral-700",
-        "transition-all duration-300 hover:shadow-xl hover:shadow-accent-500/5",
-        priority ? "md:col-span-2 md:row-span-2" : "",
+        "group block relative overflow-hidden",
+        "border border-[var(--color-border-light)] hover:border-[var(--color-border-medium)]",
+        "transition-all duration-300",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-text-accent)] focus-visible:ring-offset-2",
       )}
+      aria-label={`View project: ${project.title}`}
     >
-      {/* Thumbnail */}
-      <div className="relative aspect-16/10 overflow-hidden">
+      {/* Thumbnail - Exact from Figma: 666x373.75 or 666x415.5 or 666x465.59375 */}
+      <div className="relative aspect-[16/9] overflow-hidden bg-[var(--color-bg-tertiary)]">
         {project.thumbnail && (
           <Image
             src={project.thumbnail}
-            alt=""
+            alt={`Project thumbnail for ${project.title}`}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
             priority={priority}
             placeholder="blur"
@@ -58,116 +63,25 @@ export function ProjectCard({ project, priority = false }: ProjectCardProps) {
           />
         )}
 
-        {/* Video play indicator */}
+        {/* Video play indicator - Exact from Figma */}
         {isVideo && (
-          <button
-            className="absolute inset-0 flex items-center justify-center bg-neutral-950/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            aria-label={`Play video for ${project.title}`}
-          >
-            <div className="flex items-center justify-center h-16 w-16 rounded-full bg-accent-500 text-neutral-950 shadow-xl">
-              <Play className="h-8 w-8 ml-1" aria-hidden="true" />
+          <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <div className="flex items-center justify-center h-14 w-14 rounded-full bg-white/90 backdrop-blur-sm text-black shadow-xl">
+              <Play className="h-7 w-7 ml-1" aria-hidden="true" />
             </div>
-          </button>
-        )}
-
-        {/* Featured badge */}
-        {project.featured && (
-          <div className="absolute top-3 left-3">
-            <span className="inline-flex items-center gap-1 rounded-full bg-accent-500 px-2.5 py-1 text-xs font-medium text-neutral-950">
-              Featured
-            </span>
           </div>
         )}
-
-        {/* Year badge */}
-        <div className="absolute bottom-3 right-3">
-          <span className="rounded-full bg-neutral-950/80 backdrop-blur-sm px-3 py-1 text-xs font-medium text-neutral-300">
-            {project.year}
-          </span>
-        </div>
       </div>
 
-      {/* Content */}
-      <div className="p-6">
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.tags.slice(0, 4).map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full bg-neutral-800 px-2.5 py-0.5 text-xs text-neutral-400 hover:text-neutral-200 transition-colors"
-            >
-              {tag}
-            </span>
-          ))}
-          {project.tags.length > 4 && (
-            <span className="rounded-full bg-neutral-800 px-2.5 py-0.5 text-xs text-neutral-500">
-              +{project.tags.length - 4}
-            </span>
-          )}
-        </div>
-
-        {/* Title */}
-        <h3 className="text-xl font-semibold text-neutral-100 mb-2 group-hover:text-accent-400 transition-colors">
+      {/* Meta Bar - Exact from Figma: 29.5px height, H3 title + H4 meta */}
+      <div className="flex items-center justify-between px-0 py-0 h-[29.5px] border-t border-[var(--color-border-light)] bg-white transition-colors duration-200 group-hover:bg-[var(--color-bg-secondary)]">
+        <h3 className="text-h3 font-normal text-primary leading-[25.5px] tracking-[-0.34px] whitespace-nowrap truncate pr-4">
           {project.title}
         </h3>
-
-        {/* Description */}
-        <p className="text-neutral-400 text-sm leading-relaxed mb-6 line-clamp-3">
-          {project.description}
-        </p>
-
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-1.5 mb-6">
-          {project.technologies.slice(0, 5).map((tech) => (
-            <span
-              key={tech}
-              className="rounded bg-neutral-800 px-2 py-0.5 text-[11px] font-medium text-neutral-300"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-
-        {/* Links */}
-        <div className="flex items-center gap-4 pt-4 border-t border-neutral-800">
-          {project.links.demo && (
-            <a
-              href={project.links.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-sm font-medium text-neutral-400 hover:text-accent-400 transition-colors"
-              aria-label={`View demo for ${project.title}`}
-            >
-              <ExternalLink className="h-4 w-4" aria-hidden="true" />
-              <span>Demo</span>
-            </a>
-          )}
-          {project.links.github && (
-            <a
-              href={project.links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-sm font-medium text-neutral-400 hover:text-accent-400 transition-colors"
-              aria-label={`View code for ${project.title}`}
-            >
-              <FaGithub className="h-4 w-4" aria-hidden="true" />
-              <span>Code</span>
-            </a>
-          )}
-          {project.links.caseStudy && (
-            <a
-              href={project.links.caseStudy}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-sm font-medium text-neutral-400 hover:text-accent-400 transition-colors"
-              aria-label={`Read case study for ${project.title}`}
-            >
-              <Eye className="h-4 w-4" aria-hidden="true" />
-              <span>Case Study</span>
-            </a>
-          )}
-        </div>
+        <span className="text-h4 font-normal text-secondary uppercase whitespace-nowrap leading-[22.5px] flex-shrink-0">
+          {company} • {meta}
+        </span>
       </div>
-    </article>
+    </a>
   );
 }

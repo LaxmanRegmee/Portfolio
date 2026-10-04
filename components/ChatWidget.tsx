@@ -70,36 +70,39 @@ export function ChatWidget({ isOpen, onClose }: ChatWidgetProps) {
     >
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-neutral-950/60 backdrop-blur-sm transition-opacity"
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
         onClick={onClose}
         aria-hidden="true"
       />
 
-      {/* Chat Panel */}
-      <div className="absolute right-0 top-0 h-full w-full max-w-md sm:max-w-lg lg:max-w-xl bg-neutral-950 border-l border-neutral-800 flex flex-col animate-slide-in-right">
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-neutral-800">
+      {/* Chat Panel - matches Figma RacheLLM modal */}
+      <div className="absolute right-0 top-0 h-full w-full max-w-md sm:max-w-lg lg:max-w-xl bg-white border-l border-neutral-200 flex flex-col animate-slide-in-right shadow-xl">
+        {/* Header - matches Figma: 383×64, "RacheLLM" + Settings + Reset + Close */}
+        <div className="flex items-center justify-between h-16 px-4 border-b border-neutral-200 bg-white">
           <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center h-10 w-10 rounded-xl bg-accent-500/10">
-              <Sparkles
-                className="h-5 w-5 text-accent-400"
-                aria-hidden="true"
-              />
-            </div>
-            <div>
-              <h3 className="font-semibold text-neutral-100">Laxman's AI</h3>
-              <p className="text-xs text-neutral-400">
-                Ask me anything about my work
-              </p>
-            </div>
+            <h3 className="text-h4 font-semibold text-black">RacheLLM</h3>
           </div>
-          <button
-            onClick={onClose}
-            className="p-2 rounded-lg text-neutral-400 hover:text-neutral-100 hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
-            aria-label="Close chat"
-          >
-            <X className="h-5 w-5" aria-hidden="true" />
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              className="p-2 rounded-full text-neutral-500 hover:text-black hover:bg-neutral-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+              aria-label="Settings"
+            >
+              <Sparkles className="h-5 w-5" aria-hidden="true" />
+            </button>
+            <button
+              className="p-2 rounded-full text-neutral-500 hover:text-black hover:bg-neutral-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+              aria-label="Reset conversation"
+            >
+              <Loader2 className="h-5 w-5" aria-hidden="true" />
+            </button>
+            <button
+              onClick={onClose}
+              className="p-2 rounded-full text-neutral-500 hover:text-black hover:bg-neutral-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black"
+              aria-label="Close chat"
+            >
+              <X className="h-5 w-5" aria-hidden="true" />
+            </button>
+          </div>
         </div>
 
         {/* Messages */}
@@ -110,13 +113,13 @@ export function ChatWidget({ isOpen, onClose }: ChatWidgetProps) {
           {messages.length === 0 && (
             <div className="text-center py-12">
               <MessageSquare
-                className="h-12 w-12 text-neutral-700 mx-auto mb-4"
+                className="h-12 w-12 text-neutral-300 mx-auto mb-4"
                 aria-hidden="true"
               />
-              <p className="text-neutral-400 text-sm mb-2">
-                Hi! I'm Laxman's AI assistant.
+              <p className="text-neutral-500 text-sm mb-2">
+                Hi! I&apos;m Rachel&apos;s AI assistant.
               </p>
-              <p className="text-neutral-500 text-xs">
+              <p className="text-neutral-400 text-xs">
                 Ask me about my projects, experience, design process, or
                 anything else!
               </p>
@@ -132,17 +135,17 @@ export function ChatWidget({ isOpen, onClose }: ChatWidgetProps) {
               )}
             >
               {message.role === "assistant" && (
-                <div className="shrink-0 h-8 w-8 rounded-xl bg-accent-500/10 flex items-center justify-center">
+                <div className="shrink-0 h-8 w-8 rounded-xl bg-black/5 flex items-center justify-center">
                   <Sparkles
-                    className="h-4 w-4 text-accent-400"
+                    className="h-4 w-4 text-black"
                     aria-hidden="true"
                   />
                 </div>
               )}
               {message.role === "user" && (
-                <div className="shrink-0 h-8 w-8 rounded-xl bg-neutral-800 flex items-center justify-center">
-                  <span className="text-xs font-medium text-neutral-300">
-                    LR
+                <div className="shrink-0 h-8 w-8 rounded-xl bg-black flex items-center justify-center">
+                  <span className="text-xs font-medium text-white">
+                    RC
                   </span>
                 </div>
               )}
@@ -151,8 +154,8 @@ export function ChatWidget({ isOpen, onClose }: ChatWidgetProps) {
                 className={cn(
                   "max-w-[75%] rounded-2xl px-4 py-3",
                   message.role === "user"
-                    ? "bg-accent-500 text-neutral-950 rounded-br-md"
-                    : "bg-neutral-900 text-neutral-100 border border-neutral-800 rounded-bl-md",
+                    ? "bg-black text-white rounded-br-md"
+                    : "bg-neutral-100 text-black border border-neutral-200 rounded-bl-md",
                 )}
               >
                 <p className="text-sm leading-relaxed whitespace-pre-wrap">
@@ -162,7 +165,7 @@ export function ChatWidget({ isOpen, onClose }: ChatWidgetProps) {
                 {message.role === "assistant" &&
                   getMessageData(message)?.sources && (
                     <details className="mt-3">
-                      <summary className="text-xs text-neutral-400 hover:text-neutral-300 cursor-pointer flex items-center gap-1">
+                      <summary className="text-xs text-neutral-500 hover:text-black cursor-pointer flex items-center gap-1">
                         <Sparkles className="h-3 w-3" aria-hidden="true" />
                         Sources ({getMessageData(message).sources.length})
                       </summary>
@@ -178,9 +181,9 @@ export function ChatWidget({ isOpen, onClose }: ChatWidgetProps) {
                           ) => (
                             <li
                               key={i}
-                              className="bg-neutral-950/50 rounded-lg p-2"
+                              className="bg-neutral-50 rounded-lg p-2"
                             >
-                              <p className="font-medium text-neutral-300">
+                              <p className="font-medium text-black">
                                 {source.title}
                               </p>
                               <p className="line-clamp-2">{source.snippet}</p>
@@ -189,7 +192,7 @@ export function ChatWidget({ isOpen, onClose }: ChatWidgetProps) {
                                   href={source.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="text-accent-400 hover:underline mt-1 inline-block"
+                                  className="text-black hover:underline mt-1 inline-block"
                                 >
                                   Read more →
                                 </a>
@@ -206,24 +209,24 @@ export function ChatWidget({ isOpen, onClose }: ChatWidgetProps) {
 
           {status === "streaming" && (
             <div className="flex gap-3">
-              <div className="shrink-0 h-8 w-8 rounded-xl bg-accent-500/10 flex items-center justify-center">
+              <div className="shrink-0 h-8 w-8 rounded-xl bg-black/5 flex items-center justify-center">
                 <Sparkles
-                  className="h-4 w-4 text-accent-400 animate-pulse"
+                  className="h-4 w-4 text-black animate-pulse"
                   aria-hidden="true"
                 />
               </div>
-              <div className="bg-neutral-900 rounded-2xl rounded-bl-md border border-neutral-800 px-4 py-3 max-w-[75%]">
-                <div className="flex items-center gap-1.5 text-neutral-400">
+              <div className="bg-neutral-100 rounded-2xl rounded-bl-md border border-neutral-200 px-4 py-3 max-w-[75%]">
+                <div className="flex items-center gap-1.5 text-neutral-500">
                   <span
-                    className="h-1.5 w-1.5 rounded-full bg-accent-400 animate-bounce"
+                    className="h-1.5 w-1.5 rounded-full bg-black animate-bounce"
                     style={{ animationDelay: "0ms" }}
                   />
                   <span
-                    className="h-1.5 w-1.5 rounded-full bg-accent-400 animate-bounce"
+                    className="h-1.5 w-1.5 rounded-full bg-black animate-bounce"
                     style={{ animationDelay: "150ms" }}
                   />
                   <span
-                    className="h-1.5 w-1.5 rounded-full bg-accent-400 animate-bounce"
+                    className="h-1.5 w-1.5 rounded-full bg-black animate-bounce"
                     style={{ animationDelay: "300ms" }}
                   />
                 </div>
@@ -237,7 +240,7 @@ export function ChatWidget({ isOpen, onClose }: ChatWidgetProps) {
         {/* Input */}
         <form
           onSubmit={handleSubmit}
-          className="p-4 border-t border-neutral-800"
+          className="p-4 border-t border-neutral-200 bg-white"
         >
           <div className="flex items-end gap-2">
             <textarea
@@ -245,7 +248,7 @@ export function ChatWidget({ isOpen, onClose }: ChatWidgetProps) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask me anything..."
-              className="flex-1 min-h-11 max-h-32 rounded-xl bg-neutral-900 border border-neutral-800 px-4 py-3 text-sm text-neutral-100 placeholder-neutral-500 focus:outline-none focus:border-accent-500 focus:ring-1 focus:ring-accent-500 resize-none transition-colors"
+              className="flex-1 min-h-11 max-h-32 rounded-xl bg-neutral-50 border border-neutral-200 px-4 py-3 text-sm text-black placeholder-neutral-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black resize-none transition-colors"
               rows={1}
               disabled={status === "streaming"}
               aria-label="Chat input"
@@ -255,10 +258,10 @@ export function ChatWidget({ isOpen, onClose }: ChatWidgetProps) {
               disabled={!input.trim() || status === "streaming"}
               className={cn(
                 "shrink-0 h-10 w-10 rounded-xl flex items-center justify-center transition-colors",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2",
                 input.trim() && status !== "streaming"
-                  ? "bg-accent-500 text-neutral-950 hover:bg-accent-400"
-                  : "bg-neutral-800 text-neutral-500 cursor-not-allowed",
+                  ? "bg-black text-white hover:bg-neutral-800"
+                  : "bg-neutral-200 text-neutral-400 cursor-not-allowed",
               )}
               aria-label={
                 status === "streaming" ? "Sending..." : "Send message"
@@ -271,7 +274,7 @@ export function ChatWidget({ isOpen, onClose }: ChatWidgetProps) {
               )}
             </button>
           </div>
-          <p className="text-xs text-neutral-500 text-center mt-2">
+          <p className="text-xs text-neutral-400 text-center mt-2">
             Powered by AI • Your conversations are private
           </p>
         </form>

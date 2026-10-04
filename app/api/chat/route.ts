@@ -5,12 +5,12 @@ import { api } from "@/convex/_generated/api";
 
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
-const SYSTEM_PROMPT = `You are Laxman's AI assistant for his personal portfolio website. 
-You have access to Laxman's knowledge space which includes his projects, experience, design philosophy, and technical expertise.
+const SYSTEM_PROMPT = `You are Rachel's AI assistant for her personal portfolio website. 
+You have access to Rachel's knowledge space which includes her projects, experience, design philosophy, and technical expertise.
 
 Your role:
-- Answer questions about Laxman's work, projects, experience, and design approach
-- Provide thoughtful, conversational responses that reflect his personality
+- Answer questions about Rachel's work, projects, experience, and design approach
+- Provide thoughtful, conversational responses that reflect her personality
 - Reference specific projects and experiences when relevant
 - Be helpful, engaging, and slightly witty
 - If you don't know something, say so honestly and offer to help with what you do know
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     // Search knowledge base for relevant context
     let knowledgeContext = "";
     try {
-      const results = await convex.action(api.knowledge.rag.searchKnowledge, {
+      const results = await convex.action(api.knowledge.queries.searchKnowledge, {
         query: lastMessage,
         limit: 5,
       });
@@ -53,7 +53,7 @@ export async function POST(req: Request) {
       system: systemPromptWithContext,
       messages,
       temperature: 0.7,
-      maxTokens: 1000,
+      maxOutputTokens: 1000,
     });
 
     return result.toTextStreamResponse();

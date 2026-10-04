@@ -1,6 +1,6 @@
 # Rachel Chen Portfolio — Design System
 
-> Extracted from Figma: `https://www.figma.com/design/I6rWkG1Ondwke5gW8oM0oR/personal-portfolio?node-id=18-1689&m=dev`
+> Extracted from Figma: `@https://www.figma.com/design/I6rWkG1Ondwke5gW8oM0oR/personal-portfolio?node-id=18-1689&m=dev`
 
 ---
 
@@ -8,8 +8,8 @@
 
 | Property    | Value                                                  |
 | ----------- | ------------------------------------------------------ |
-| **Name**    | Rachel Chen                                            |
-| **Title**   | Product Designer + Engineer                            |
+| **Name**    | Laxman Regmi                                            |
+| **Title**   | Product Designer + UI/UX Designer                            |
 | **Tagline** | "I'm a designer, builder, & dancer—optimizing for fun" |
 | **Persona** | Designer • Builder • Dancer • Fun-Haver                |
 
@@ -335,12 +335,12 @@ Container (1360×24)
 
 ---
 
-### 8.8 RacheLLM Chat Widget (Modal/Drawer)
+### 8.8 LxmnLLM Chat Widget (Modal/Drawer)
 
 **Header (383×64):**
 
 ```
-├── "RacheLLM" (Heading 4)
+├── "LxmnLLM" (Heading 4)
 ├── [Settings Icon] (Button)
 └── [Reset] [Close] (Icon Buttons, 28×28)
 ```
@@ -546,7 +546,7 @@ Container (1360×24)
 
 ### Phase 4: Interactive Features
 
-- [ ] RacheLLM Chat Widget
+- [ ] LxmnLLM Chat Widget
 - [ ] Video play overlays
 - [ ] Smooth scroll / page transitions
 - [ ] Intersection Observer animations
@@ -564,7 +564,7 @@ Container (1360×24)
 
 | Figma Node | Description                       | Key Data  |
 | ---------- | --------------------------------- | --------- |
-| `18:1689`  | Root section "rachale llm desing" | 5169×3298 |
+| `18:1689`  | Root section "lxmn llm desing" | 5169×3298 |
 | `17:561`   | Work page frame                   | 1408×2460 |
 | `17:1150`  | About page frame                  | 1408×2889 |
 | `17:1441`  | Fun page frame                    | 1408×1450 |

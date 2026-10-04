@@ -1,10 +1,12 @@
 # Project Decisions & Engineering Standards
 
 > **Project:** Laxman Portfolio — Next.js 16.3.8 + React 19 + TypeScript + Tailwind CSS v4 + Convex + Custom LLM
-> **Last Updated:** 2026-10-02
-> **Source of Truth:** This document + `DESIGN_SYSTEM.md` + `AGENTS.md`
+> **Last Updated:** 2026-10-03
+> **Source of Truth:** This document + `DESIGN_SYSTEM.md` + `globals.css`
 >
 > **Project Vision:** A personal portfolio featuring an AI-powered knowledge space — a custom LLM trained on my work, studies, experience, projects, and thoughts — allowing visitors to converse with my professional persona and explore my background through natural language.
+>
+> **Design System Reference:** All design tokens, component specifications, and visual standards are defined in `DESIGN_SYSTEM.md`. This document references those tokens for implementation decisions. The `globals.css` file contains the Tailwind v4 `@theme` configuration mapping design tokens to utility classes.
 
 ---
 
@@ -661,7 +663,7 @@ export function ChatInterface() {
       {/* Header */}
       <div className="px-4 py-3 border-b border-gray-200 bg-gray-50">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center">
             <span className="text-white text-sm font-medium">LA</span>
           </div>
           <div>
@@ -814,7 +816,7 @@ export function MessageBubble({ message, isStreaming }: MessageBubbleProps) {
       )}
     >
       {!isUser && (
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0 mt-1">
+        <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center shrink-0 mt-1">
           <span className="text-white text-xs font-medium">LA</span>
         </div>
       )}
@@ -844,7 +846,7 @@ export function MessageBubble({ message, isStreaming }: MessageBubbleProps) {
       </div>
 
       {isUser && (
-        <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center flex-shrink-0 mt-1">
+        <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center shrink-0 mt-1">
           <svg
             className="h-4 w-4 text-gray-600"
             fill="none"
@@ -1715,7 +1717,7 @@ export default function Loading() {
         <div className="mt-20 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {[...Array(6)].map((_, i) => (
             <div key={i} className="space-y-4">
-              <div className="aspect-[4/3] bg-gray-200 rounded-lg" />
+              <div className="aspect-4/3 bg-gray-200 rounded-lg" />
               <div className="h-8 w-3/4 bg-gray-200 rounded" />
               <div className="h-4 w-1/2 bg-gray-200 rounded" />
               <div className="h-4 w-1/3 bg-gray-200 rounded" />
@@ -2018,137 +2020,303 @@ jobs:
 
 ## Design Implementation Guidelines
 
-### 1. Translating Figma to Code
+### 1. Design System Reference
 
-#### Design Token Mapping
+All design tokens, component specifications, and visual standards are defined in `DESIGN_SYSTEM.md`. This section provides implementation guidance for translating those specifications into code using Tailwind CSS v4.
 
-| Figma Token          | CSS Variable             | Tailwind Class             | Usage                  |
-| -------------------- | ------------------------ | -------------------------- | ---------------------- |
-| Primary Background   | `--color-bg-primary`     | `bg-bg-primary`            | Page background        |
-| Secondary Background | `--color-bg-secondary`   | `bg-bg-secondary`          | Cards, sections        |
-| Primary Text         | `--color-text-primary`   | `text-text-primary`        | Headings, primary copy |
-| Secondary Text       | `--color-text-secondary` | `text-text-secondary`      | Body text              |
-| Accent/Primary       | `--color-accent`         | `bg-accent`, `text-accent` | CTAs, links            |
-| Border Light         | `--color-border-light`   | `border-border-light`      | Dividers, cards        |
+> **Note:** The design system in `DESIGN_SYSTEM.md` was extracted from a Figma design for "Rachel Chen Portfolio" but has been adapted for the Laxman Portfolio project. The tokens and specifications remain applicable.
 
-#### Knowledge Space Design Tokens
+#### Design Token Mapping (from DESIGN_SYSTEM.md)
 
-| Token                    | CSS Variable                | Tailwind Class             | Usage                        |
-| ------------------------ | --------------------------- | -------------------------- | ---------------------------- |
-| Chat Background          | `--color-chat-bg`           | `bg-chat-bg`               | Chat container background    |
-| User Message Bubble      | `--color-chat-user-bg`      | `bg-chat-user-bg`          | User message background      |
-| Assistant Message Bubble | `--color-chat-assistant-bg` | `bg-chat-assistant-bg`     | Assistant message background |
-| Streaming Cursor         | `--color-streaming-cursor`  | `bg-streaming-cursor`      | Typing animation cursor      |
-| Source Citation          | `--color-citation-bg`       | `bg-citation-bg`           | Knowledge source citations   |
-| Input Focus Ring         | `--color-input-focus`       | `focus:ring-input-focus`   | Chat input focus state       |
-| Knowledge Card Hover     | `--color-knowledge-hover`   | `hover:bg-knowledge-hover` | Knowledge stat cards         |
+| Design Token             | CSS Variable                     | Tailwind v4 Class                                | Usage                                    |
+| ------------------------ | -------------------------------- | ------------------------------------------------ | ---------------------------------------- |
+| **Colors**               |                                  |                                                  |                                          |
+| Primary Background       | `--color-bg-primary`             | `bg-bg-primary`                                  | Page background                          |
+| Secondary Background     | `--color-bg-secondary`           | `bg-bg-secondary`                                | Card/section backgrounds                 |
+| Tertiary Background      | `--color-bg-tertiary`            | `bg-bg-tertiary`                                 | Subtle containers                        |
+| Primary Text             | `--color-text-primary`           | `text-text-primary`                              | Headings, primary copy                   |
+| Secondary Text           | `--color-text-secondary`         | `text-text-secondary`                            | Body text, meta info                     |
+| Tertiary Text            | `--color-text-tertiary`          | `text-text-tertiary`                             | Placeholders, disabled states            |
+| Inverse Text             | `--color-text-inverse`           | `text-text-inverse`                              | On dark backgrounds                      |
+| Border Light             | `--color-border-light`           | `border-border-light`                            | Dividers, card borders                   |
+| Border Medium            | `--color-border-medium`          | `border-border-medium`                           | Input borders, hover states              |
+| Accent (Primary)         | `--color-accent`                 | `bg-accent`, `text-accent`                       | Primary CTAs, links (black)              |
+| Accent Hover             | `--color-accent-hover`           | `hover:bg-accent-hover`                          | Hover state                              |
+| Accent Focus             | `--color-accent-focus`           | `focus:ring-accent-focus`                        | Focus ring (with offset)                 |
+| Link                     | `--color-link`                   | `text-link`                                      | Inline links                             |
+| Link Hover               | `--color-link-hover`             | `hover:text-link-hover`                          | Link hover                               |
+| Link Visited             | `--color-link-visited`           | `visited:text-link-visited`                      | Visited links                            |
+| Success                  | `--color-success`                | `bg-success`, `text-success`                     | Success states                           |
+| Warning                  | `--color-warning`                | `bg-warning`, `text-warning`                     | Warning states                           |
+| Error                    | `--color-error`                  | `bg-error`, `text-error`                         | Error states                             |
+| Info                     | `--color-info`                   | `bg-info`, `text-info`                           | Info states                              |
+| **Knowledge Space**      |                                  |                                                  |                                          |
+| Chat Background          | `--color-chat-bg`                | `bg-chat-bg`                                     | Chat container background                |
+| User Message Bubble      | `--color-chat-user-bg`           | `bg-chat-user-bg`                                | User message background                  |
+| Assistant Message Bubble | `--color-chat-assistant-bg`      | `bg-chat-assistant-bg`                           | Assistant message background             |
+| Streaming Cursor         | `--color-streaming-cursor`       | `bg-streaming-cursor`                            | Typing animation cursor                  |
+| Source Citation          | `--color-citation-bg`            | `bg-citation-bg`                                 | Knowledge source citations               |
+| Input Focus              | `--color-input-focus`            | `focus:ring-input-focus`                         | Chat input focus state                   |
+| Knowledge Card Hover     | `--color-knowledge-hover`        | `hover:bg-knowledge-hover`                       | Knowledge stat cards hover               |
+| **Typography**           |                                  |                                                  |                                          |
+| Font Sans                | `--font-sans`                    | `font-sans`                                      | Body text, UI                            |
+| Font Mono                | `--font-mono`                    | `font-mono`                                      | Code, technical text                     |
+| Display                  | `--text-display`                 | `text-display`                                   | Hero headlines (48-64px)                 |
+| H1                       | `--text-h1`                      | `text-h1`                                        | Page titles, section heroes (40-48px)    |
+| H2                       | `--text-h2`                      | `text-h2`                                        | Major section headers (32-36px)          |
+| H3                       | `--text-h3`                      | `text-h3`                                        | Project titles, card headlines (24-26px) |
+| H4                       | `--text-h4`                      | `text-h4`                                        | Sub-headers, meta labels (18-20px)       |
+| Body Large               | `--text-body-lg`                 | `text-body-lg`                                   | Lead paragraphs (18px)                   |
+| Body                     | `--text-body`                    | `text-body`                                      | Default body text (16px)                 |
+| Body Small               | `--text-body-sm`                 | `text-body-sm`                                   | Meta info, captions (14px)               |
+| Caption                  | `--text-caption`                 | `text-caption`                                   | Labels, tags (12px)                      |
+| Button                   | `--text-button`                  | `text-button`                                    | Button labels (14px)                     |
+| **Spacing**              |                                  |                                                  |                                          |
+| Space 1-24               | `--space-1` through `--space-24` | `p-1` through `p-24`, `m-1` through `m-24`, etc. | 4px base unit system                     |
+| **Border Radius**        |                                  |                                                  |                                          |
+| None                     | `--radius-none`                  | `rounded-none`                                   | Sharp corners                            |
+| Small                    | `--radius-sm`                    | `rounded-sm`                                     | Buttons, inputs, small cards (4px)       |
+| Medium                   | `--radius-md`                    | `rounded-md`                                     | Standard cards, containers (8px)         |
+| Large                    | `--radius-lg`                    | `rounded-lg`                                     | Large cards, modals (12px)               |
+| XL                       | `--radius-xl`                    | `rounded-xl`                                     | Hero images, featured cards (16px)       |
+| Full                     | `--radius-full`                  | `rounded-full`                                   | Pills, avatar, icon buttons              |
+| **Shadows**              |                                  |                                                  |                                          |
+| XS                       | `--shadow-xs`                    | `shadow-xs`                                      | Subtle depth                             |
+| SM                       | `--shadow-sm`                    | `shadow-sm`                                      | Cards on hover                           |
+| MD                       | `--shadow-md`                    | `shadow-md`                                      | Standard elevation                       |
+| LG                       | `--shadow-lg`                    | `shadow-lg`                                      | Modals, dropdowns                        |
+| XL                       | `--shadow-xl`                    | `shadow-xl`                                      | Chat widget, major overlays              |
+| **Transitions**          |                                  |                                                  |                                          |
+| Fast                     | `--transition-fast`              | `transition-fast`                                | 150ms ease-out                           |
+| Base                     | `--transition-base`              | `transition-base`                                | 200ms ease-out                           |
+| Slow                     | `--transition-slow`              | `transition-slow`                                | 300ms ease-out                           |
+| **Z-Index**              |                                  |                                                  |                                          |
+| Dropdown                 | `--z-dropdown`                   | `z-dropdown`                                     | 100                                      |
+| Sticky                   | `--z-sticky`                     | `z-sticky`                                       | 200                                      |
+| Modal                    | `--z-modal`                      | `z-modal`                                        | 300                                      |
+| Toast                    | `--z-toast`                      | `z-toast`                                        | 400                                      |
+| Tooltip                  | `--z-tooltip`                    | `z-tooltip`                                      | 500                                      |
 
-#### Spacing System
+#### Tailwind v4 Theme Configuration
+
+The `globals.css` file contains the `@theme` block mapping all design tokens to Tailwind utilities. Key additions for v3 compatibility:
 
 ```css
-/* Tailwind v4 spacing follows 4px base unit */
-/* Use these consistently: */
-p-1  /* 4px */
-p-2  /* 8px */
-p-3  /* 12px */
-p-4  /* 16px */
-p-5  /* 20px */
-p-6  /* 24px */
-p-8  /* 32px */
-p-10 /* 40px */
-p-12 /* 48px */
-p-16 /* 64px */
-p-20 /* 80px */
+@theme {
+  /* Neutral scale for v3 class compatibility (neutral-50 through neutral-950) */
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #1a1a1a;
+  --color-neutral-950: #0a0a0a;
+
+  /* Accent scale for v3 class compatibility */
+  --color-accent-300: #666666;
+  --color-accent-400: #333333;
+  --color-accent-500: #000000;
+  --color-accent-600: #000000;
+
+  /* Design system semantic colors mapped to Tailwind */
+  --color-bg-primary: var(--color-bg-primary);
+  --color-bg-secondary: var(--color-bg-secondary);
+  --color-bg-tertiary: var(--color-bg-tertiary);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary: var(--color-text-tertiary);
+  --color-text-inverse: var(--color-text-inverse);
+  --color-border-light: var(--color-border-light);
+  --color-border-medium: var(--color-border-medium);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-accent-focus: var(--color-accent-focus);
+  --color-link: var(--color-link);
+  --color-link-hover: var(--color-link-hover);
+  --color-link-visited: var(--color-link-visited);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  --color-info: var(--color-info);
+  /* ... knowledge space colors ... */
+}
 ```
 
-#### Responsive Breakpoints
+#### Responsive Breakpoints (from DESIGN_SYSTEM.md)
 
 ```css
-/* Tailwind v4 defaults (mobile-first) */
-sm:  640px   /* Tablet portrait */
-md:  768px   /* Tablet landscape */
-lg:  1024px  /* Desktop */
-xl:  1280px  /* Large desktop */
-2xl: 1536px  /* Extra large */
+/* Design system breakpoints for reference */
+--bp-mobile: 390px;   /* Mobile portrait */
+--bp-tablet: 768px;   /* Tablet portrait */
+--bp-laptop: 1024px;  /* Laptop */
+--bp-desktop: 1408px; /* Design width */
+--bp-wide: 1600px;    /* Large desktop */
+
+/* Tailwind v4 defaults (mobile-first) - use these in components */
+sm:  640px
+md:  768px
+lg:  1024px
+xl:  1280px
+2xl: 1536px
 ```
 
 ### 2. Component Implementation Checklist
 
-When implementing a design from Figma:
+When implementing components from the design system:
 
-- [ ] **Extract design tokens** — colors, spacing, typography, shadows
-- [ ] **Identify component variants** — primary/secondary, sizes, states
-- [ ] **Define TypeScript interfaces** — strict props typing
-- [ ] **Build primitive components first** — Button, Text, Input, Card
-- [ ] **Compose into sections** — Hero, Projects, About, Footer
-- [ ] **Test responsive behavior** — all breakpoints
-- [ ] **Verify accessibility** — keyboard nav, screen readers, contrast
-- [ ] **Check dark mode** — if applicable
-- [ ] **Optimize images** — WebP/AVIF, proper sizes, lazy loading
-- [ ] **Add loading states** — skeletons, spinners
-- [ ] **Document usage** — Storybook or README
+- [ ] **Extract design tokens** — Use CSS variables from `DESIGN_SYSTEM.md` via Tailwind classes
+- [ ] **Identify component variants** — Primary/secondary/ghost, sizes, states (hover, focus, active, disabled)
+- [ ] **Define TypeScript interfaces** — Strict props typing with JSDoc comments
+- [ ] **Build primitive components first** — Button, Text, Input, Card, Avatar, Spinner
+- [ ] **Compose into sections** — Hero, Projects, About, Experience, KnowledgeSpace, Footer
+- [ ] **Test responsive behavior** — All breakpoints (mobile, tablet, laptop, desktop)
+- [ ] **Verify accessibility** — Keyboard nav, screen readers, contrast (≥4.5:1 AA), focus visible
+- [ ] **Check reduced motion** — Respect `prefers-reduced-motion` for all transitions
+- [ ] **Optimize images** — WebP/AVIF, proper sizes, lazy loading, blur placeholders
+- [ ] **Add loading states** — Skeletons, spinners, streaming cursors
+- [ ] **Document usage** — Component README or Storybook
 
 #### AI/Knowledge Space Component Checklist
 
 When implementing AI-powered components:
 
-- [ ] **Streaming UX** — Token-by-token rendering with cursor animation
+- [ ] **Streaming UX** — Token-by-token rendering with cursor animation (`--color-streaming-cursor`)
 - [ ] **Loading states** — Skeleton for chat container, disabled input during generation
 - [ ] **Error handling** — Graceful fallback for LLM failures, retry mechanism
-- [ ] **Accessibility** — `aria-live="polite"` for streaming, role="log" for messages
-- [ ] **Source citations** — Display knowledge sources with links/snippets
+- [ ] **Accessibility** — `aria-live="polite"` for streaming, `role="log"` for messages
+- [ ] **Source citations** — Display knowledge sources with links/snippets using `--color-citation-bg`
 - [ ] **Token budget awareness** — Truncate context, show token usage if needed
 - [ ] **Rate limit feedback** — User-friendly messages when limits hit
 - [ ] **Conversation persistence** — Save/restore sessions via Convex
 - [ ] **Mobile optimization** — Full-screen chat on mobile, swipe gestures
 - [ ] **Reduced motion** — Disable cursor animation, instant token appearance
 
-### 3. Animation & Interaction Guidelines
+### 3. Component Specifications (from DESIGN_SYSTEM.md)
+
+#### Button Component
 
 ```tsx
-// lib/animations.ts
-export const transitions = {
-  fast: "transition-all duration-150 ease-out",
-  normal: "transition-all duration-300 ease-out",
-  slow: "transition-all duration-500 ease-out",
-};
+// Base: --radius-sm (4px), --text-button (14px), 32px height, 16px horizontal padding
 
-export const hoverEffects = {
-  lift: "hover:-translate-y-1 hover:shadow-lg",
-  scale: "hover:scale-[1.02]",
-  glow: "hover:shadow-[0_0_20px_rgba(0,0,0,0.15)]",
-};
+// Variants:
+Primary:   bg-accent text-text-inverse           // Main CTAs
+Secondary: bg-transparent text-accent border border-accent  // Outline actions
+Ghost:     bg-transparent text-text-primary      // Nav links, footer links
+Icon:      bg-transparent                        // Like, Reset, Social icons
 
-export const focusStyles =
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2";
+// Sizes:
+Default: 32px h, 16px px
+Small:   28px h, 12px px (icon buttons)
+Large:   40px h, 24px px (hero CTAs)
+
+// States:
+Hover:   opacity-80 / bg darken
+Active:  scale-98
+Focus:   ring-2 ring-accent-focus ring-offset-2
+Disabled: opacity-40 cursor-not-allowed
 ```
+
+#### Link Variants
 
 ```tsx
-// Usage in components
-<Button className={`${transitions.normal} ${hoverEffects.lift} ${focusStyles}`}>
-  Hover me
-</Button>
+Inline:  underline on hover, text-link          // Body copy links
+Nav:     text-body-sm, uppercase?, no underline // Header navigation
+Card:    Block, text-h3 title + text-h4 meta    // Project cards
+Footer:  text-body-sm, hover underline          // Social links
 ```
+
+#### Project Card (668×413–505px)
+
+```tsx
+Structure:
+Link (full card clickable)
+├── Thumbnail Container (666×374 or 416, aspect ~16:9)
+│   ├── Image/Video preview
+│   └── Play indicator (for video)
+└── Meta Bar (29.5px h)
+    ├── Heading 3: Project title (text-h3)
+    └── Heading 4: Company • Type Year (text-h4)
+
+Variants:
+- Video: Shows play button overlay
+- Image: Static image only
+- Left-aligned: Meta left (title left, company right)
+- Right-aligned: Mirrored
+
+Hover: Thumbnail scale 1.02, shadow elevation, meta text color accent
+```
+
+#### Header/Navigation (1408×64px, fixed)
+
+```tsx
+Structure:
+Header
+├── Left: Logo + Title
+│   ├── "Laxman" (Heading 4 / text-h4)
+│   └── "Builder • Engineer" (Heading 4 / text-h4)
+├── Center: Nav Links
+│   ├── Work | Fun | About | Resume (Links, text-body-sm)
+└── Right: CTA Button
+    └── [Icon] "Knowledge Space" (Button Primary)
+
+Variants:
+- Default: bg-bg-primary, text-text-primary
+- Scrolled: shadow-xs, backdrop-blur-sm
+
+States:
+- Nav links: underline on hover (text-accent)
+- CTA: bg-accent-hover on hover
+```
+
+#### Footer (1408×65px)
+
+```tsx
+Structure:
+Container (1360×24)
+├── Left: "Designed + Coded with" + [Heart Icon] + "by Laxman"
+└── Right: Social Links
+    ├── LinkedIn | Email (Button) | X | Github | Devpost
+```
+
+### 4. Animation & Interaction Guidelines (from DESIGN_SYSTEM.md)
+
+#### Easing Functions
+
+```css
+--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+--ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+--ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+```
+
+#### Transition Durations
+
+```css
+--transition-fast: 150ms var(--ease-out); /* Button hover, link color */
+--transition-base: 200ms var(--ease-out); /* Card hover, header scroll */
+--transition-slow: 300ms var(--ease-out); /* Chat widget open, page transitions */
+```
+
+#### Interaction Patterns
+
+| Interaction      | Animation                            |
+| ---------------- | ------------------------------------ |
+| Page transition  | Fade 200ms + slide up 200ms          |
+| Card hover       | Transform scale(1.02) 200ms ease-out |
+| Button hover     | Background transition 150ms          |
+| Nav link hover   | Underline width 0→100% 200ms         |
+| Header scroll    | Backdrop-blur + shadow 200ms         |
+| Chat widget open | Slide from right 300ms spring        |
+| Image load       | Blur-up (LQIP → HQ) 300ms            |
+| Video play       | Overlay fade 200ms                   |
 
 #### Streaming Animation Patterns
 
 ```tsx
-// lib/animations.ts - Streaming specific
-export const streamingAnimations = {
-  // Cursor blink animation for streaming tokens
-  cursorBlink: "animate-[blink_1s_ease-in-out_infinite]",
-
-  // Token fade-in for smooth streaming
-  tokenFadeIn: "animate-[fadeIn_0.1s_ease-out]",
-
-  // Message slide-up on new message
-  messageSlideUp: "animate-[slideUp_0.3s_ease-out]",
-
-  // Source citation appear
-  citationAppear: "animate-[scaleIn_0.2s_ease-out]",
-};
-
-// In globals.css or Tailwind config
+// In globals.css @layer utilities or Tailwind config
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
@@ -2168,6 +2336,12 @@ export const streamingAnimations = {
   from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
 }
+
+/* Utility classes */
+.animate-cursor-blink { animation: blink 1s ease-in-out infinite; }
+.animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+.animate-slide-up { animation: slideUp 0.3s ease-out forwards; }
+.animate-scale-in { animation: scaleIn 0.2s ease-out forwards; }
 ```
 
 ```tsx
@@ -2184,33 +2358,18 @@ interface MessageBubbleProps {
 export function MessageBubble({ message, isStreaming }: MessageBubbleProps) {
   return (
     <div
-      className={`flex gap-3 ${message.role === "user" ? "flex-row-reverse" : ""} animate-[slideUp_0.3s_ease-out]`}
+      className={`flex gap-3 ${message.role === "user" ? "flex-row-reverse" : ""} animate-slide-up`}
     >
-      <div className="w-8 h-8 rounded-full flex-shrink-0 bg-gray-100" />
+      <div className="w-8 h-8 rounded-full flex-shrink-0 bg-bg-tertiary" />
       <div
-        className={`max-w-[70%] ${message.role === "assistant" ? "bg-chat-assistant-bg" : "bg-chat-user-bg text-white"}`}
+        className={`max-w-[70%] ${message.role === "assistant" ? "bg-chat-assistant-bg" : "bg-chat-user-bg text-text-inverse"}`}
       >
         <p className="px-4 py-2 whitespace-pre-wrap">{message.content}</p>
         {isStreaming && (
           <span
-            className="inline-block w-2 h-4 bg-streaming-cursor animate-[blink_1s_ease-in-out_infinite] ml-1"
+            className="inline-block w-2 h-4 bg-streaming-cursor animate-cursor-blink ml-1"
             aria-hidden="true"
           />
-        )}
-        {message.sources && message.sources.length > 0 && (
-          <div className="mt-2 px-4 pb-2 space-y-1">
-            {message.sources.map((source, i) => (
-              <a
-                key={i}
-                href={source.url || "#"}
-                className="block text-xs text-gray-500 hover:text-accent transition-colors animate-[scaleIn_0.2s_ease-out]"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                📄 {source.title}
-              </a>
-            ))}
-          </div>
         )}
       </div>
     </div>
@@ -2218,7 +2377,9 @@ export function MessageBubble({ message, isStreaming }: MessageBubbleProps) {
 }
 ```
 
-### 4. Layout Patterns
+### 5. Layout Patterns
+
+#### Container Component
 
 ```tsx
 // components/layout/Container.tsx
@@ -2232,16 +2393,16 @@ interface ContainerProps {
 }
 
 const sizes = {
-  sm: "max-w-3xl",
-  md: "max-w-5xl",
-  lg: "max-w-7xl",
-  xl: "max-w-[80rem]",
+  sm: "max-w-3xl" /* ~768px */,
+  md: "max-w-5xl" /* ~1024px */,
+  lg: "max-w-7xl" /* ~1280px */,
+  xl: "max-w-[85rem]" /* 1360px - design system container */,
   full: "max-w-full",
 };
 
 export function Container({
   children,
-  size = "lg",
+  size = "xl",
   className,
 }: ContainerProps) {
   return (
@@ -2252,17 +2413,41 @@ export function Container({
 }
 ```
 
-#### Knowledge Space Layout
+#### Page Layout Structure
 
 ```tsx
-// app/knowledge/page.tsx - Knowledge space page layout
+// app/layout.tsx - Root layout
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <body className="font-sans antialiased bg-bg-primary text-text-primary">
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
+      </body>
+    </html>
+  );
+}
+```
+
+#### Knowledge Space Page Layout
+
+```tsx
+// app/knowledge/page.tsx
 import { KnowledgeSpace } from "@/components/sections/KnowledgeSpace";
+import { Container } from "@/components/layout/Container";
 
 export default function KnowledgePage() {
   return (
     <div className="min-h-screen bg-bg-primary">
-      <header className="border-b border-border-light">
-        <Container size="lg">
+      <header className="border-b border-border-light sticky top-0 z-sticky bg-bg-primary/80 backdrop-blur-sm">
+        <Container size="xl">
           <nav className="flex h-16 items-center justify-between">
             <h1 className="text-h2 font-semibold text-text-primary">
               Knowledge Space
@@ -2307,6 +2492,177 @@ export function KnowledgeSpace() {
   );
 }
 ```
+
+### 6. Accessibility Requirements (from DESIGN_SYSTEM.md)
+
+| Requirement        | Implementation                                                                                       |
+| ------------------ | ---------------------------------------------------------------------------------------------------- |
+| **Color Contrast** | All text ≥ 4.5:1 (AA), large text ≥ 3:1                                                              |
+| **Focus Visible**  | 2px solid `--color-accent-focus` ring, 2px offset, ring-offset-color `--color-bg-primary`            |
+| **Keyboard Nav**   | All interactive elements reachable, logical tab order                                                |
+| **ARIA**           | `aria-label` on icon buttons, `role="button"` on clickable cards, `aria-live="polite"` for streaming |
+| **Alt Text**       | All project thumbnails: descriptive alt ("Project thumbnail for [Project Name]")                     |
+| **Reduced Motion** | Respect `prefers-reduced-motion` for all transitions (disable animations)                            |
+| **Skip Link**      | Add "Skip to main content" link at top of page                                                       |
+
+```css
+/* globals.css - Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+```
+
+### 7. Image Optimization
+
+```tsx
+// components/ui/OptimizedImage.tsx
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+
+interface OptimizedImageProps {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  priority?: boolean;
+  className?: string;
+  fill?: boolean;
+}
+
+export function OptimizedImage({
+  src,
+  alt,
+  width,
+  height,
+  priority = false,
+  className,
+  fill = false,
+  ...props
+}: OptimizedImageProps) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
+  if (hasError) {
+    return (
+      <div
+        className={cn(
+          "bg-bg-tertiary flex items-center justify-center",
+          className,
+        )}
+        style={{
+          width: fill ? undefined : width,
+          height: fill ? undefined : height,
+        }}
+        aria-hidden="true"
+      >
+        <svg
+          className="h-8 w-8 text-text-tertiary"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
+        </svg>
+      </div>
+    );
+  }
+
+  return (
+    <div className={cn("relative overflow-hidden", className)}>
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        fill={fill}
+        priority={priority}
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        className={cn(
+          "transition-opacity duration-300",
+          isLoading ? "opacity-0 scale-105" : "opacity-100 scale-100",
+        )}
+        onLoad={() => setIsLoading(false)}
+        onError={() => {
+          setIsLoading(false);
+          setHasError(true);
+        }}
+        placeholder="blur"
+        blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+        {...props}
+      />
+      {isLoading && (
+        <div
+          className="absolute inset-0 bg-bg-tertiary animate-pulse"
+          aria-hidden="true"
+        />
+      )}
+    </div>
+  );
+}
+```
+
+### 8. Font Optimization
+
+```tsx
+// app/layout.tsx
+import { Inter, JetBrains_Mono } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+  preload: true,
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
+});
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <body className="font-sans antialiased bg-bg-primary text-text-primary">
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+        <ChatInterface />
+      </Container>
+
+      {/* Suggested Prompts */}
+      <Container size="lg">
+        <SuggestedPrompts />
+      </Container>
+    </div>
+
+);
+}
+
+````
 
 ---
 
@@ -2419,7 +2775,7 @@ export default defineSchema({
     order: v.number(),
   }).index("by_order", ["order"]),
 });
-```
+````
 
 ### 3. Rate Limiting Configuration
 

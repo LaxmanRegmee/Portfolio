@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+#mcp and desing instructions
+.mcp.json
+figma-metadata-full.xml
+DESICIONS.md
+DESIGN_SYSTEM.md

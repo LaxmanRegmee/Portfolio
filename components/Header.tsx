@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -16,45 +16,55 @@ export function Header({ onChatClick }: { onChatClick: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  if (typeof window !== "undefined") {
-    window.addEventListener("scroll", () => {
+  useEffect(() => {
+    const handleScroll = () => {
       setScrolled(window.scrollY > 20);
-    });
-  }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800"
+          ? "bg-white/80 backdrop-blur-md border-b border-[var(--color-border-light)]"
           : "bg-transparent",
       )}
       role="banner"
     >
       <nav
-        className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+        className="mx-auto max-w-[1360px] px-6"
         aria-label="Main navigation"
       >
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center">
-            <Link
-              href="#"
-              className="text-xl font-semibold text-neutral-100 hover:text-accent-400 transition-colors"
-              aria-label="Laxman Portfolio - Home"
-            >
-              LR
-            </Link>
-          </div>
+          {/* Logo - Exact from Figma: "Rachel Chen" + "Product Designer + Engineer" */}
+          <Link
+            href="#"
+            className="flex flex-col items-start"
+            aria-label="Rachel Chen Portfolio - Home"
+          >
+            <span className="text-h4 font-medium text-primary uppercase">
+              Rachel Chen
+            </span>
+            <span className="text-h4 font-normal text-secondary uppercase">
+              Product Designer + Engineer
+            </span>
+          </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Exact from Figma */}
           <div className="hidden md:flex items-center gap-8">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm font-medium text-neutral-300 hover:text-accent-400 transition-colors"
+                className={cn(
+                  "text-h4 font-normal uppercase whitespace-nowrap transition-colors",
+                  item.name === "Work"
+                    ? "text-accent"
+                    : "text-secondary hover:text-accent"
+                )}
               >
                 {item.name}
               </Link>
@@ -65,15 +75,15 @@ export function Header({ onChatClick }: { onChatClick: () => void }) {
           <div className="flex items-center gap-4">
             <button
               onClick={onChatClick}
-              className="hidden sm:flex items-center gap-2 rounded-lg bg-accent-500 px-4 py-2 text-sm font-medium text-neutral-950 hover:bg-accent-400 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950"
+              className="hidden sm:flex items-center justify-center gap-2 rounded-sm bg-[var(--color-text-primary)] px-4 py-2 text-button font-normal text-white uppercase hover:bg-[var(--color-text-accent)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-text-accent)] focus-visible:ring-offset-2"
               aria-label="Open chat with AI assistant"
             >
               <MessageSquare className="h-4 w-4" aria-hidden="true" />
-              <span>Chat</span>
+              <span>RacheLLM</span>
             </button>
 
             <button
-              className="md:hidden p-2 rounded-lg text-neutral-300 hover:text-neutral-100 hover:bg-neutral-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+              className="md:hidden p-2 rounded-sm text-secondary hover:text-primary hover:bg-[var(--color-bg-tertiary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-text-accent)]"
               onClick={() => setIsOpen(!isOpen)}
               aria-expanded={isOpen}
               aria-controls="mobile-menu"
@@ -98,12 +108,17 @@ export function Header({ onChatClick }: { onChatClick: () => void }) {
           role="navigation"
           aria-label="Mobile navigation"
         >
-          <div className="py-4 space-y-2 border-t border-neutral-800">
+          <div className="py-4 space-y-2 border-t border-[var(--color-border-light)]">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="block px-2 py-3 text-base font-medium text-neutral-300 hover:text-accent-400 transition-colors"
+                className={cn(
+                  "block px-2 py-3 text-h4 font-normal uppercase transition-colors",
+                  item.name === "Work"
+                    ? "text-accent"
+                    : "text-secondary hover:text-accent"
+                )}
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
@@ -114,10 +129,10 @@ export function Header({ onChatClick }: { onChatClick: () => void }) {
                 onChatClick();
                 setIsOpen(false);
               }}
-              className="w-full flex items-center justify-center gap-2 rounded-lg bg-accent-500 px-4 py-3 text-base font-medium text-neutral-950 hover:bg-accent-400 transition-colors"
+              className="w-full flex items-center justify-center gap-2 rounded-sm bg-[var(--color-text-primary)] px-4 py-3 text-button font-normal text-white uppercase hover:bg-[var(--color-text-accent)] transition-colors"
             >
               <MessageSquare className="h-5 w-5" aria-hidden="true" />
-              <span>Chat with AI</span>
+              <span>RacheLLM</span>
             </button>
           </div>
         </div>

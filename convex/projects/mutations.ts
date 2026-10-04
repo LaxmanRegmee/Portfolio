@@ -21,6 +21,7 @@ export const createProject = mutation({
       caseStudy: v.optional(v.string()),
     }),
     order: v.number(),
+    company: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const id = await ctx.db.insert("projects", {
@@ -55,6 +56,7 @@ export const updateProject = mutation({
       }),
     ),
     order: v.optional(v.number()),
+    company: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const { id, ...updates } = args;

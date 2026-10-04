@@ -2,83 +2,63 @@
 
 /* ==========================================================================
    DESIGN SYSTEM — CSS Custom Properties
-   Source: DESIGN_SYSTEM.md (Laxman Portfolio)
+   Source: Figma Design - Node 17:561 (Rachel Chen | Product Designer + Engineer)
    ========================================================================== */
 
 :root {
   /* --------------------------------------------------------------------------
-     COLOR PALETTE
+     COLOR PALETTE (Exact from Figma)
      ----------------------------------------------------------------------- */
 
-  /* Neutral Scale */
+  /* Primary Colors */
+  --color-text-primary: #32404f; /* Main headings, primary text */
+  --color-text-secondary: rgba(50, 64, 79, 0.58); /* Body text, meta info, muted */
+  --color-text-accent: #e65f2e; /* Active nav link (Work), accent color */
+  --color-text-inverse: #ffffff; /* On dark backgrounds */
+
+  /* Background */
   --color-bg-primary: #ffffff; /* Page background */
   --color-bg-secondary: #fafafa; /* Card/section backgrounds */
   --color-bg-tertiary: #f5f5f5; /* Subtle containers */
 
-  --color-text-primary: #1a1a1a; /* Headings, primary copy */
-  --color-text-secondary: #525252; /* Body text, meta info */
-  --color-text-tertiary: #a3a3a3; /* Placeholders, disabled states */
-  --color-text-inverse: #ffffff; /* On dark backgrounds */
-
+  /* Borders */
   --color-border-light: #e5e5e5; /* Dividers, card borders */
   --color-border-medium: #d4d4d4; /* Input borders, hover states */
 
-  /* Accent / Brand */
-  --color-accent: #000000; /* Primary CTAs, links (black) */
-  --color-accent-hover: #333333; /* Hover state */
-  --color-accent-focus: #000000; /* Focus ring (with offset) */
-
-  --color-link: #000000; /* Inline links */
-  --color-link-hover: #333333;
-  --color-link-visited: #666666;
-
   /* Semantic */
-  --color-success: #166534; /* Success states */
-  --color-warning: #854d0e; /* Warning states */
-  --color-error: #991b1b; /* Error states */
-  --color-info: #1e40af; /* Info states */
-
-  /* Knowledge Space Specific */
-  --color-chat-bg: #ffffff; /* Chat container background */
-  --color-chat-user-bg: #000000; /* User message background */
-  --color-chat-assistant-bg: #fafafa; /* Assistant message background */
-  --color-streaming-cursor: #000000; /* Typing animation cursor */
-  --color-citation-bg: #f5f5f5; /* Knowledge source citations */
-  --color-input-focus: #000000; /* Chat input focus state */
-  --color-knowledge-hover: #f5f5f5; /* Knowledge stat cards hover */
+  --color-success: #166534;
+  --color-warning: #854d0e;
+  --color-error: #991b1b;
+  --color-info: #1e40af;
 
   /* --------------------------------------------------------------------------
-     TYPOGRAPHY
+     TYPOGRAPHY (Exact from Figma)
      ----------------------------------------------------------------------- */
 
-  /* Font Families */
-  --font-sans:
-    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  /* Font Families - Exact from Figma */
+  --font-heading: "Tinos", "Georgia", serif; /* H1, H3 - serif */
+  --font-sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; /* Body, H4, UI */
+  --font-mono: "Geist Mono", "JetBrains Mono", "Fira Code", monospace; /* Nav, labels, small text */
 
-  /* Type Scale — Fluid with clamp() for responsiveness */
-  --text-display: clamp(3rem, 5vw, 4rem); /* 48-64px — Hero headlines */
-  --text-h1: clamp(
-    2.5rem,
-    4vw,
-    3rem
-  ); /* 40-48px — Page titles, section heroes */
-  --text-h2: clamp(2rem, 3vw, 2.25rem); /* 32-36px — Major section headers */
-  --text-h3: clamp(
-    1.5rem,
-    2vw,
-    1.625rem
-  ); /* 24-26px — Project titles, card headlines */
-  --text-h4: clamp(
-    1.125rem,
-    1.5vw,
-    1.25rem
-  ); /* 18-20px — Sub-headers, meta labels */
-  --text-body-lg: 1.125rem; /* 18px — Lead paragraphs, intro copy */
-  --text-body: 1rem; /* 16px — Default body text */
-  --text-body-sm: 0.875rem; /* 14px — Meta info, captions, footer links */
-  --text-caption: 0.75rem; /* 12px — Labels, tags, button text */
-  --text-button: 0.875rem; /* 14px — Button labels */
+  /* Type Scale - Exact pixel values from Figma */
+  --text-h1: 56px; /* Hero headline */
+  --text-h1-line-height: 61.6px;
+  --text-h1-tracking: -1.12px;
+
+  --text-h3: 17px; /* Project titles */
+  --text-h3-line-height: 25.5px;
+  --text-h3-tracking: -0.34px;
+
+  --text-h4: 15px; /* Nav links, meta labels, years */
+  --text-h4-line-height: 22.5px;
+  --text-h4-tracking: 0;
+
+  --text-body: 15px; /* Body paragraphs, role text */
+  --text-body-line-height: 22.5px;
+  --text-body-tracking: 0;
+
+  --text-button: 15px; /* Button text (RacheLLM) */
+  --text-button-line-height: 22.5px;
 
   /* Font Weights */
   --font-weight-normal: 400;
@@ -86,35 +66,35 @@
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
-  /* Line Heights */
-  --leading-tight: 1.1;
-  --leading-snug: 1.2;
-  --leading-normal: 1.3;
-  --leading-relaxed: 1.5;
-  --leading-loose: 1.6;
-
-  /* Letter Spacing */
-  --tracking-tight: -0.02em;
-  --tracking-normal: 0;
-  --tracking-wide: 0.01em;
-  --tracking-wider: 0.02em;
-
   /* --------------------------------------------------------------------------
-     SPACING SYSTEM (4px base unit)
+     SPACING SYSTEM (Exact from Figma - 4px base unit)
      ----------------------------------------------------------------------- */
   --space-0: 0;
-  --space-1: 0.25rem; /* 4px */
-  --space-2: 0.5rem; /* 8px */
-  --space-3: 0.75rem; /* 12px */
-  --space-4: 1rem; /* 16px */
-  --space-5: 1.25rem; /* 20px */
-  --space-6: 1.5rem; /* 24px */
-  --space-8: 2rem; /* 32px */
-  --space-10: 2.5rem; /* 40px */
-  --space-12: 3rem; /* 48px */
-  --space-16: 4rem; /* 64px */
-  --space-20: 5rem; /* 80px */
-  --space-24: 6rem; /* 96px */
+  --space-1: 4px;   /* 4px */
+  --space-2: 8px;   /* 8px */
+  --space-3: 12px;  /* 12px */
+  --space-4: 16px;  /* 16px */
+  --space-5: 20px;  /* 20px */
+  --space-6: 24px;  /* 24px - container padding, column gap */
+  --space-7: 28px;  /* 28px - experience item gap */
+  --space-8: 32px;  /* 32px */
+  --space-10: 40px; /* 40px */
+  --space-12: 48px; /* 48px */
+  --space-16: 64px; /* 64px - header height */
+  --space-20: 80px; /* 80px */
+  --space-24: 96px; /* 96px */
+
+  /* --------------------------------------------------------------------------
+     LAYOUT (Exact from Figma)
+     ----------------------------------------------------------------------- */
+  --container-width: 1360px; /* Content width (1408 - 24*2) */
+  --artboard-width: 1408px; /* Full artboard width */
+  --container-padding: 24px; /* Side padding */
+  --header-height: 64px;
+  --hero-column-width: 668px; /* Each hero column */
+  --hero-column-gap: 24px; /* Gap between hero columns */
+  --project-card-width: 668px;
+  --project-meta-height: 29.5px; /* Project meta bar height */
 
   /* --------------------------------------------------------------------------
      BORDER RADIUS
@@ -136,13 +116,13 @@
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.08), 0 10px 10px rgba(0, 0, 0, 0.03);
 
   /* --------------------------------------------------------------------------
-     BREAKPOINTS (for reference — Tailwind handles these)
+     BREAKPOINTS
      ----------------------------------------------------------------------- */
-  --bp-mobile: 390px; /* Mobile portrait */
-  --bp-tablet: 768px; /* Tablet portrait */
-  --bp-laptop: 1024px; /* Laptop */
+  --bp-mobile: 390px;
+  --bp-tablet: 768px;
+  --bp-laptop: 1024px;
   --bp-desktop: 1408px; /* Design width */
-  --bp-wide: 1600px; /* Large desktop */
+  --bp-wide: 1600px;
 
   /* --------------------------------------------------------------------------
      TRANSITIONS / ANIMATION
@@ -171,90 +151,39 @@
    ========================================================================== */
 
 @theme {
-  /* Colors - Neutral Scale (for v3 compatibility: neutral-50 through neutral-950) */
-  --color-neutral-50: #fafafa;
-  --color-neutral-100: #f5f5f5;
-  --color-neutral-200: #e5e5e5;
-  --color-neutral-300: #d4d4d4;
-  --color-neutral-400: #a3a3a3;
-  --color-neutral-500: #737373;
-  --color-neutral-600: #525252;
-  --color-neutral-700: #404040;
-  --color-neutral-800: #262626;
-  --color-neutral-900: #1a1a1a;
-  --color-neutral-950: #0a0a0a;
+  /* Colors - Exact from Figma */
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-accent: var(--color-text-accent);
+  --color-text-inverse: var(--color-text-inverse);
 
-  /* Colors - Accent Scale (for v3 compatibility: accent-300, accent-400, accent-500) */
-  --color-accent-300: #666666;
-  --color-accent-400: #333333;
-  --color-accent-500: #000000;
-  --color-accent-600: #000000;
-
-  /* Colors - Design System Semantic Colors */
   --color-bg-primary: var(--color-bg-primary);
   --color-bg-secondary: var(--color-bg-secondary);
   --color-bg-tertiary: var(--color-bg-tertiary);
 
-  --color-text-primary: var(--color-text-primary);
-  --color-text-secondary: var(--color-text-secondary);
-  --color-text-tertiary: var(--color-text-tertiary);
-  --color-text-inverse: var(--color-text-inverse);
-
   --color-border-light: var(--color-border-light);
   --color-border-medium: var(--color-border-medium);
-
-  --color-accent: var(--color-accent);
-  --color-accent-hover: var(--color-accent-hover);
-  --color-accent-focus: var(--color-accent-focus);
-
-  --color-link: var(--color-link);
-  --color-link-hover: var(--color-link-hover);
-  --color-link-visited: var(--color-link-visited);
 
   --color-success: var(--color-success);
   --color-warning: var(--color-warning);
   --color-error: var(--color-error);
   --color-info: var(--color-info);
 
-  /* Knowledge Space */
-  --color-chat-bg: var(--color-chat-bg);
-  --color-chat-user-bg: var(--color-chat-user-bg);
-  --color-chat-assistant-bg: var(--color-chat-assistant-bg);
-  --color-streaming-cursor: var(--color-streaming-cursor);
-  --color-citation-bg: var(--color-citation-bg);
-  --color-input-focus: var(--color-input-focus);
-  --color-knowledge-hover: var(--color-knowledge-hover);
-
   /* Typography */
+  --font-heading: var(--font-heading);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
 
-  --text-display: var(--text-display);
   --text-h1: var(--text-h1);
-  --text-h2: var(--text-h2);
   --text-h3: var(--text-h3);
   --text-h4: var(--text-h4);
-  --text-body-lg: var(--text-body-lg);
   --text-body: var(--text-body);
-  --text-body-sm: var(--text-body-sm);
-  --text-caption: var(--text-caption);
   --text-button: var(--text-button);
 
   --font-weight-normal: var(--font-weight-normal);
   --font-weight-medium: var(--font-weight-medium);
   --font-weight-semibold: var(--font-weight-semibold);
   --font-weight-bold: var(--font-weight-bold);
-
-  --leading-tight: var(--leading-tight);
-  --leading-snug: var(--leading-snug);
-  --leading-normal: var(--leading-normal);
-  --leading-relaxed: var(--leading-relaxed);
-  --leading-loose: var(--leading-loose);
-
-  --tracking-tight: var(--tracking-tight);
-  --tracking-normal: var(--tracking-normal);
-  --tracking-wide: var(--tracking-wide);
-  --tracking-wider: var(--tracking-wider);
 
   /* Spacing */
   --space-0: var(--space-0);
@@ -264,6 +193,7 @@
   --space-4: var(--space-4);
   --space-5: var(--space-5);
   --space-6: var(--space-6);
+  --space-7: var(--space-7);
   --space-8: var(--space-8);
   --space-10: var(--space-10);
   --space-12: var(--space-12);
@@ -307,7 +237,7 @@
   html {
     font-family: var(--font-sans);
     font-size: 16px;
-    line-height: var(--leading-loose);
+    line-height: var(--text-body-line-height);
     color: var(--color-text-primary);
     background-color: var(--color-bg-primary);
     -webkit-font-smoothing: antialiased;
@@ -320,67 +250,68 @@
     min-height: 100vh;
   }
 
-  /* Heading styles */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-weight: var(--font-weight-bold);
-    line-height: var(--leading-tight);
-    letter-spacing: var(--tracking-tight);
+  /* Heading styles - Exact from Figma */
+  h1 {
+    font-family: var(--font-heading);
+    font-size: var(--text-h1);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--text-h1-line-height);
+    letter-spacing: var(--text-h1-tracking);
     color: var(--color-text-primary);
     margin: 0 0 var(--space-4);
   }
 
-  h1 {
-    font-size: var(--text-h1);
-  }
-  h2 {
-    font-size: var(--text-h2);
-  }
   h3 {
+    font-family: var(--font-heading);
     font-size: var(--text-h3);
-  }
-  h4 {
-    font-size: var(--text-h4);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--text-h3-line-height);
+    letter-spacing: var(--text-h3-tracking);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-4);
   }
 
-  /* Body text */
+  h4 {
+    font-family: var(--font-mono);
+    font-size: var(--text-h4);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--text-h4-line-height);
+    letter-spacing: var(--text-h4-tracking);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-4);
+  }
+
+  /* Body text - Exact from Figma */
   p {
+    font-family: var(--font-sans);
     font-size: var(--text-body);
-    line-height: var(--leading-loose);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--text-body-line-height);
+    letter-spacing: var(--text-body-tracking);
     color: var(--color-text-secondary);
     margin: 0 0 var(--space-4);
   }
 
   /* Links */
   a {
-    color: var(--color-link);
+    color: var(--color-text-primary);
     text-decoration: none;
     transition: color var(--transition-fast);
   }
 
   a:hover {
-    color: var(--color-link-hover);
-  }
-
-  a:visited {
-    color: var(--color-link-visited);
+    color: var(--color-text-accent);
   }
 
   /* Focus visible for accessibility */
   :focus-visible {
     outline: none;
-    ring: 2px solid var(--color-accent-focus);
-    ring-offset: 2px;
-    ring-offset-color: var(--color-bg-primary);
+    box-shadow: 0 0 0 2px var(--color-bg-primary), 0 0 0 4px var(--color-text-accent);
   }
 
   /* Selection */
   ::selection {
-    background-color: var(--color-accent);
+    background-color: var(--color-text-primary);
     color: var(--color-text-inverse);
   }
 
@@ -407,28 +338,14 @@
     text-wrap: balance;
   }
 
-  /* Container utility */
+  /* Container utility - Exact from Figma */
   .container {
     width: 100%;
-    max-width: 85rem; /* 1360px */
+    max-width: var(--container-width);
     margin-left: auto;
     margin-right: auto;
-    padding-left: var(--space-4);
-    padding-right: var(--space-4);
-  }
-
-  @media (min-width: 640px) {
-    .container {
-      padding-left: var(--space-6);
-      padding-right: var(--space-6);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .container {
-      padding-left: var(--space-8);
-      padding-right: var(--space-8);
-    }
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
   }
 
   /* Skip link for accessibility */
@@ -438,10 +355,11 @@
     left: var(--space-4);
     z-index: var(--z-tooltip);
     padding: var(--space-2) var(--space-4);
-    background-color: var(--color-accent);
+    background-color: var(--color-text-primary);
     color: var(--color-text-inverse);
     border-radius: var(--radius-sm);
-    font-size: var(--text-body-sm);
+    font-size: var(--text-h4);
+    font-family: var(--font-mono);
     font-weight: var(--font-weight-medium);
     transition: top var(--transition-fast);
   }
@@ -463,7 +381,7 @@
     border: 0;
   }
 
-  /* Animation keyframes for streaming */
+  /* Animation keyframes */
   @keyframes blink {
     0%,
     100% {
@@ -526,9 +444,86 @@
     display: inline-block;
     width: 2px;
     height: 1em;
-    background-color: var(--color-streaming-cursor);
+    background-color: var(--color-text-primary);
     animation: blink 1s ease-in-out infinite;
     margin-left: 2px;
     vertical-align: text-bottom;
+  }
+
+  /* Figma-specific utility classes */
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  .text-h1 {
+    font-family: var(--font-heading);
+    font-size: var(--text-h1);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--text-h1-line-height);
+    letter-spacing: var(--text-h1-tracking);
+  }
+
+  .text-h3 {
+    font-family: var(--font-heading);
+    font-size: var(--text-h3);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--text-h3-line-height);
+    letter-spacing: var(--text-h3-tracking);
+  }
+
+  .text-h4 {
+    font-family: var(--font-mono);
+    font-size: var(--text-h4);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--text-h4-line-height);
+    letter-spacing: var(--text-h4-tracking);
+  }
+
+  .text-body {
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--text-body-line-height);
+    letter-spacing: var(--text-body-tracking);
+  }
+
+  .text-button {
+    font-family: var(--font-mono);
+    font-size: var(--text-button);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--text-button-line-height);
+    letter-spacing: var(--text-h4-tracking);
+  }
+
+  .text-primary {
+    color: var(--color-text-primary);
+  }
+
+  .text-secondary {
+    color: var(--color-text-secondary);
+  }
+
+  .text-accent {
+    color: var(--color-text-accent);
+  }
+
+  .uppercase {
+    text-transform: uppercase;
+  }
+
+  .whitespace-nowrap {
+    white-space: nowrap;
+  }
+
+  .leading-tight {
+    line-height: 1.1;
+  }
+
+  .tracking-tight {
+    letter-spacing: -0.02em;
   }
 }

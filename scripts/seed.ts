@@ -8,6 +8,52 @@ const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 const sampleProjects = [
   {
+    title: "OpenAI x Hardware",
+    slug: "openai-hardware",
+    description:
+      "Concept exploration for AI-powered hardware devices. Exploring the intersection of LLMs and physical computing.",
+    longDescription:
+      "A concept project exploring how AI models can be embedded into physical hardware devices. Includes industrial design concepts, interaction patterns, and technical feasibility studies for next-generation AI hardware.",
+    thumbnail:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=450&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&h=675&fit=crop",
+    ],
+    tags: ["AI/ML", "Hardware", "Concept", "Industrial Design"],
+    technologies: ["Figma", "Python", "Raspberry Pi", "OpenAI API", "CAD"],
+    year: "2025",
+    featured: true,
+    type: "image" as const,
+    links: {
+      caseStudy: "/case-studies/openai-hardware",
+    },
+    order: 1,
+    company: "OpenAI",
+  },
+  {
+    title: "Notion Redesign",
+    slug: "notion-redesign",
+    description:
+      "A comprehensive redesign of Notion's core workspace experience, focusing on improved navigation and collaboration.",
+    longDescription:
+      "Redesigned Notion's core workspace with focus on reducing cognitive load, improving team collaboration flows, and creating a more intuitive information architecture. Conducted user research with 50+ power users.",
+    thumbnail:
+      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=450&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&h=675&fit=crop",
+    ],
+    tags: ["SaaS", "Productivity", "Collaboration", "UX Research"],
+    technologies: ["Figma", "React", "TypeScript", "UserTesting", "Miro"],
+    year: "2024",
+    featured: true,
+    type: "image" as const,
+    links: {
+      caseStudy: "/case-studies/notion-redesign",
+    },
+    order: 2,
+    company: "Notion",
+  },
+  {
     title: "Design System Platform",
     slug: "design-system-platform",
     description:
@@ -15,22 +61,24 @@ const sampleProjects = [
     longDescription:
       "Built a scalable design system platform serving 500+ designers and developers across multiple product teams. Includes Figma integration, automated documentation, version control, and adoption analytics.",
     thumbnail:
-      "https://images.unsplash.com/photo-1558655146-9f40138eddee?w=800&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1558655146-9f40138eddee?w=800&h=450&fit=crop",
     images: [
-      "https://images.unsplash.com/photo-1558655146-9f40138eddee?w=1200&h=750&fit=crop",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=750&fit=crop",
+      "https://images.unsplash.com/photo-1558655146-9f40138eddee?w=1200&h=675&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop",
     ],
     tags: ["Design Systems", "React", "TypeScript", "Figma"],
     technologies: ["React", "TypeScript", "Storybook", "Figma API", "Node.js"],
     year: "2024",
     featured: true,
-    type: "image" as const,
+    type: "video" as const,
+    videoUrl: "https://example.com/demo-video.mp4",
     links: {
       demo: "https://design-system.example.com",
-      github: "https://github.com/laxmanregmi/design-system",
+      github: "https://github.com/rachelchen/design-system",
       caseStudy: "/case-studies/design-system",
     },
-    order: 1,
+    order: 3,
+    company: "Design Studio Inc.",
   },
   {
     title: "AI-Powered Analytics Dashboard",
@@ -40,9 +88,9 @@ const sampleProjects = [
     longDescription:
       "Designed and built an intelligent analytics platform that allows non-technical users to query data using natural language. Features automated anomaly detection, predictive forecasting, and customizable reporting.",
     thumbnail:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=450&fit=crop",
     images: [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=750&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop",
     ],
     tags: ["AI/ML", "Data Visualization", "SaaS", "Dashboard"],
     technologies: [
@@ -54,14 +102,15 @@ const sampleProjects = [
       "Recharts",
     ],
     year: "2023",
-    featured: true,
+    featured: false,
     type: "image" as const,
     links: {
       demo: "https://analytics.example.com",
-      github: "https://github.com/laxmanregmi/ai-analytics",
+      github: "https://github.com/rachelchen/ai-analytics",
       caseStudy: "/case-studies/ai-analytics",
     },
-    order: 2,
+    order: 4,
+    company: "TechStart Labs",
   },
   {
     title: "Collaborative Design Tool",
@@ -71,9 +120,9 @@ const sampleProjects = [
     longDescription:
       "A Figma-like collaborative design tool built for product teams. Features real-time multiplayer editing, design token management, component libraries, and seamless developer handoff with code generation.",
     thumbnail:
-      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=450&fit=crop",
     images: [
-      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&h=750&fit=crop",
+      "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&h=675&fit=crop",
     ],
     tags: ["Collaboration", "Design Tools", "Real-time", "WebGL"],
     technologies: [
@@ -85,15 +134,15 @@ const sampleProjects = [
       "Node.js",
     ],
     year: "2023",
-    featured: true,
-    type: "video" as const,
-    videoUrl: "https://example.com/demo-video.mp4",
+    featured: false,
+    type: "image" as const,
     links: {
       demo: "https://design-tool.example.com",
-      github: "https://github.com/laxmanregmi/collab-design",
+      github: "https://github.com/rachelchen/collab-design",
       caseStudy: "/case-studies/collab-design",
     },
-    order: 3,
+    order: 5,
+    company: "Creative Agency",
   },
   {
     title: "E-commerce Design Overhaul",
@@ -103,9 +152,9 @@ const sampleProjects = [
     longDescription:
       "Led the end-to-end redesign of a high-traffic e-commerce platform. Conducted user research, created design systems, improved checkout flow, and implemented accessibility standards. Resulted in 35% conversion increase and WCAG 2.1 AA compliance.",
     thumbnail:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=450&fit=crop",
     images: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=750&fit=crop",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=675&fit=crop",
     ],
     tags: ["E-commerce", "UX Research", "Accessibility", "Conversion"],
     technologies: ["Figma", "UserTesting", "Hotjar", "React", "Storybook"],
@@ -115,106 +164,82 @@ const sampleProjects = [
     links: {
       caseStudy: "/case-studies/ecommerce-redesign",
     },
-    order: 4,
-  },
-  {
-    title: "Mobile Banking App",
-    slug: "mobile-banking-app",
-    description:
-      "Modern mobile banking application with focus on financial wellness and personalized insights.",
-    longDescription:
-      "Designed a next-generation mobile banking app focusing on financial wellness. Features include spending insights, savings goals, investment tracking, and personalized financial advice powered by ML.",
-    thumbnail:
-      "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=500&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1200&h=750&fit=crop",
-    ],
-    tags: ["FinTech", "Mobile", "Financial Wellness", "Personalization"],
-    technologies: ["Figma", "Swift", "Kotlin", "React Native", "Python"],
-    year: "2022",
-    featured: false,
-    type: "image" as const,
-    links: {
-      caseStudy: "/case-studies/mobile-banking",
-    },
-    order: 5,
-  },
-  {
-    title: "Developer Documentation Portal",
-    slug: "docs-portal",
-    description:
-      "Interactive documentation portal with live code examples, API explorer, and automated SDK generation.",
-    longDescription:
-      "Built a modern documentation platform for developer-facing APIs. Features interactive API explorer, live code playground, automated SDK generation in multiple languages, and version management.",
-    thumbnail:
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=500&fit=crop",
-    images: [
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=750&fit=crop",
-    ],
-    tags: ["Developer Experience", "Documentation", "API", "Open Source"],
-    technologies: ["Next.js", "TypeScript", "MDX", "OpenAPI", "Vercel"],
-    year: "2021",
-    featured: false,
-    type: "image" as const,
-    links: {
-      demo: "https://docs.example.com",
-      github: "https://github.com/laxmanregmi/docs-portal",
-      caseStudy: "/case-studies/docs-portal",
-    },
     order: 6,
+    company: "Creative Agency",
   },
 ];
 
 const sampleExperience = [
   {
-    company: "Design Studio Inc.",
+    company: "OpenAI",
+    role: "Product Designer",
+    description:
+      "Designing AI-powered hardware experiences. Exploring the intersection of LLMs and physical computing.",
+    startDate: "2024-01",
+    endDate: "Present",
+    technologies: [
+      "Figma",
+      "Python",
+      "Industrial Design",
+      "Prototyping",
+      "Research",
+    ],
+    highlights: [
+      "Led concept design for AI hardware devices",
+      "Collaborated with research on LLM-hardware integration",
+      "Published thought leadership on AI interfaces",
+    ],
+    order: 1,
+  },
+  {
+    company: "Notion",
     role: "Senior Product Designer",
     description:
-      "Leading design for enterprise SaaS products. Managing design system, conducting user research, and mentoring junior designers.",
-    startDate: "2022-01",
-    endDate: "Present",
+      "Led core workspace redesign focusing on navigation, collaboration, and information architecture.",
+    startDate: "2022-03",
+    endDate: "2023-12",
+    technologies: [
+      "Figma",
+      "User Research",
+      "Prototyping",
+      "React",
+      "Design Systems",
+    ],
+    highlights: [
+      "Redesigned core workspace for 30M+ users",
+      "Improved team collaboration metrics by 40%",
+      "Established design system governance",
+    ],
+    order: 2,
+  },
+  {
+    company: "Design Studio Inc.",
+    role: "Product Designer",
+    description:
+      "Designed enterprise SaaS products. Built and maintained design system for 500+ designers.",
+    startDate: "2020-01",
+    endDate: "2022-02",
     technologies: [
       "Figma",
       "React",
       "Design Systems",
       "User Research",
-      "Prototyping",
+      "Storybook",
     ],
     highlights: [
       "Built design system adopted by 500+ designers",
       "Improved product NPS by 25 points",
-      "Led redesign of core workflow reducing task time by 40%",
+      "Led redesign reducing task time by 40%",
     ],
-    order: 1,
-  },
-  {
-    company: "TechStart Labs",
-    role: "Product Designer",
-    description:
-      "Designed consumer-facing products from 0 to 1. Worked closely with founders on product strategy and user experience.",
-    startDate: "2020-03",
-    endDate: "2021-12",
-    technologies: [
-      "Figma",
-      "User Research",
-      "Prototyping",
-      "HTML/CSS",
-      "React",
-    ],
-    highlights: [
-      "Designed MVP that raised $5M Series A",
-      "Created design process from scratch",
-      "Launched 3 major product features",
-    ],
-    order: 2,
+    order: 3,
   },
   {
     company: "Creative Agency",
     role: "UI/UX Designer",
     description:
-      "Worked with diverse clients on web and mobile applications. Specialized in e-commerce and fintech projects.",
+      "Worked with diverse clients on web and mobile applications. Specialized in e-commerce and fintech.",
     startDate: "2018-06",
-    endDate: "2020-02",
+    endDate: "2019-12",
     technologies: [
       "Sketch",
       "InVision",
@@ -225,9 +250,9 @@ const sampleExperience = [
     highlights: [
       "Delivered 20+ client projects",
       "E-commerce redesign increased conversions 35%",
-      "Established accessibility standards for agency",
+      "Established accessibility standards",
     ],
-    order: 3,
+    order: 4,
   },
 ];
 
@@ -247,6 +272,22 @@ const sampleKnowledge = [
     source: "personal",
     content:
       "My design system approach: Start with foundations (colors, typography, spacing, motion) as design tokens. Build primitive components that are flexible and composable. Document everything with live examples. Version like software. Measure adoption. A design system is a product - it needs a roadmap, support, and continuous iteration. The best design systems are invisible - they just make the right thing easy and the wrong thing hard.",
+  },
+  {
+    title: "Project: OpenAI x Hardware",
+    category: "projects",
+    tags: ["ai", "hardware", "concept", "industrial-design"],
+    source: "portfolio",
+    content:
+      "OpenAI x Hardware is a concept exploration for AI-powered hardware devices. Exploring the intersection of LLMs and physical computing. Includes industrial design concepts, interaction patterns, and technical feasibility studies for next-generation AI hardware. Key challenge: designing trustworthy AI interfaces that feel natural in physical form.",
+  },
+  {
+    title: "Project: Notion Redesign",
+    category: "projects",
+    tags: ["saas", "productivity", "collaboration", "ux-research"],
+    source: "portfolio",
+    content:
+      "Notion Redesign is a comprehensive redesign of Notion's core workspace experience. Focused on improved navigation, collaboration flows, and information architecture. Conducted user research with 50+ power users. Reduced cognitive load and improved team collaboration metrics by 40%. Key insight: progressive disclosure of complexity.",
   },
   {
     title: "Project: Design System Platform",
@@ -273,12 +314,28 @@ const sampleKnowledge = [
       "Collaborative Design Tool is a real-time multiplayer design editor similar to Figma. Built with React, TypeScript, WebRTC for peer-to-peer connections, Yjs for conflict-free replicated data types (CRDTs), and Canvas API for rendering. Features: real-time cursors and selections, component libraries with design tokens, commenting and annotations, developer handoff with code generation (React, HTML/CSS, Flutter), and plugin system. Handles 50+ concurrent editors per file with sub-100ms latency.",
   },
   {
+    title: "Experience: OpenAI",
+    category: "experience",
+    tags: ["ai", "hardware", "research"],
+    source: "personal",
+    content:
+      "At OpenAI, I design AI-powered hardware experiences. Exploring the intersection of LLMs and physical computing. Key work: led concept design for AI hardware devices, collaborated with research on LLM-hardware integration, published thought leadership on AI interfaces. This role combines product design, industrial design, and AI research.",
+  },
+  {
+    title: "Experience: Notion",
+    category: "experience",
+    tags: ["leadership", "design-systems", "collaboration"],
+    source: "personal",
+    content:
+      "At Notion, I led core workspace redesign for 30M+ users. Focused on navigation, collaboration, and information architecture. Key achievements: improved team collaboration metrics by 40%, established design system governance, conducted extensive user research with power users. Worked cross-functionally with engineering, product, and research teams.",
+  },
+  {
     title: "Experience: Design Studio Inc.",
     category: "experience",
     tags: ["leadership", "design-systems", "mentoring"],
     source: "personal",
     content:
-      "At Design Studio Inc., I lead design for enterprise SaaS products. Key achievements: built and maintain the company design system used by 500+ designers across 12 product teams; improved product NPS by 25 points through systematic UX improvements; led redesign of core workflow reducing average task completion time by 40%; mentor 5 junior designers; established design review process and design quality standards; introduced user research as a mandatory step in product development cycle.",
+      "At Design Studio Inc., I designed enterprise SaaS products and built the company design system used by 500+ designers across 12 product teams. Key achievements: improved product NPS by 25 points through systematic UX improvements; led redesign of core workflow reducing average task completion time by 40%; mentored 5 junior designers; established design review process and design quality standards; introduced user research as a mandatory step in product development cycle.",
   },
   {
     title: "Design Process",

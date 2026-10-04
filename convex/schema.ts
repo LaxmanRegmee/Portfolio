@@ -22,6 +22,7 @@ export default defineSchema({
       caseStudy: v.optional(v.string()),
     }),
     order: v.number(), // For custom ordering
+    company: v.optional(v.string()), // Company/client name
     createdAt: v.number(),
     updatedAt: v.number(),
   })
