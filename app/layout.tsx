@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist,Geist_Mono, Tinos } from "next/font/google";
+import { Adamina, Geist, Geist_Mono, Tinos } from "next/font/google";
 import localFont from "next/font/local";
 import { Providers } from "./providers";
 import "./globals.css";
@@ -10,6 +10,14 @@ const tinos = Tinos({
   display: "swap",
   variable: "--font-heading",
   weight: ["400", "700"],
+  preload: true,
+});
+
+const adamina = Adamina({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-hero",
+  weight: "400",
   preload: true,
 });
 
@@ -31,8 +39,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rachel Chen | Product Designer + Engineer",
-  description: "Product Designer + Engineer portfolio featuring AI & hardware projects",
+  title: "Laxman Regmi | Product Designer + Engineer",
+  description:
+    "Product Designer + Engineer portfolio featuring AI & hardware projects",
 };
 
 export default function RootLayout({
@@ -43,7 +52,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${tinos.variable} ${geist.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${adamina.variable} ${tinos.variable} ${geist.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Providers>{children}</Providers>

@@ -5,19 +5,20 @@ import { api } from "@/convex/_generated/api";
 import { ProjectCard } from "./ProjectCard";
 
 // Static projects from Figma design - Exact match
+// Using Lottie animation URLs for thumbnails
 const figmaProjects = [
   {
     _id: "1",
     title: "The future of AI & hardware",
     slug: "openai-hardware",
     description: "OpenAI x Hardware concept project",
-    thumbnail: "/projects/openai-hardware.jpg",
+    thumbnail: "https://assets10.lottiefiles.com/packages/lf20_jcikwtux.json", // Lottie animation URL
     images: [],
     tags: ["AI", "Hardware", "Concept"],
     technologies: ["Figma", "Prototyping"],
     year: "2025",
     featured: true,
-    type: "video" as const,
+    type: "lottie" as const,
     videoUrl: "https://example.com/openai-hardware.mp4",
     links: { caseStudy: "#openai-hardware" },
     order: 0,
@@ -29,13 +30,13 @@ const figmaProjects = [
     title: "Novel consumer AI experiences",
     slug: "amazon-alexa",
     description: "Amazon Alexa+ contract work",
-    thumbnail: "/projects/amazon-alexa.jpg",
+    thumbnail: "https://assets10.lottiefiles.com/packages/lf20_jtbfg2nb.json", // Lottie animation URL
     images: [],
     tags: ["AI", "Voice", "Consumer"],
     technologies: ["Figma", "Voice Design"],
     year: "2025",
     featured: true,
-    type: "video" as const,
+    type: "lottie" as const,
     videoUrl: "https://example.com/amazon-alexa.mp4",
     links: { caseStudy: "#amazon-alexa" },
     order: 1,
@@ -47,13 +48,13 @@ const figmaProjects = [
     title: "Mobile-first for Figma",
     slug: "figma-mobile",
     description: "Figma mobile concept",
-    thumbnail: "/projects/figma-mobile.jpg",
+    thumbnail: "https://assets10.lottiefiles.com/packages/lf20_uxqw5.json", // Lottie animation URL
     images: [],
     tags: ["Mobile", "Design Tools", "Concept"],
     technologies: ["Figma", "React Native"],
     year: "2025",
     featured: false,
-    type: "video" as const,
+    type: "lottie" as const,
     videoUrl: "https://example.com/figma-mobile.mp4",
     links: { caseStudy: "#figma-mobile" },
     order: 2,
@@ -65,13 +66,13 @@ const figmaProjects = [
     title: "Patent-pending AI",
     slug: "rbc-ai",
     description: "Royal Bank of Canada AI project",
-    thumbnail: "/projects/rbc-ai.jpg",
+    thumbnail: "https://assets10.lottiefiles.com/packages/lf20_5njp3vgg.json", // Lottie animation URL
     images: [],
     tags: ["AI", "FinTech", "Patent"],
     technologies: ["Python", "React"],
     year: "2024",
     featured: false,
-    type: "video" as const,
+    type: "lottie" as const,
     videoUrl: "https://example.com/rbc-ai.mp4",
     links: { caseStudy: "#rbc-ai" },
     order: 3,
@@ -83,13 +84,13 @@ const figmaProjects = [
     title: "The world's first AI poker coach",
     slug: "pokergpt",
     description: "PokerGPT shipped product",
-    thumbnail: "/projects/pokergpt.jpg",
+    thumbnail: "https://assets10.lottiefiles.com/packages/lf20_3rwasyjy.json", // Lottie animation URL
     images: [],
     tags: ["AI", "Gaming", "Product"],
     technologies: ["React", "Node.js", "OpenAI"],
     year: "2023",
     featured: true,
-    type: "video" as const,
+    type: "lottie" as const,
     videoUrl: "https://example.com/pokergpt.mp4",
     links: { caseStudy: "#pokergpt" },
     order: 4,
@@ -101,13 +102,13 @@ const figmaProjects = [
     title: "The future of software development",
     slug: "cognition-ai",
     description: "Cognition AI contract work",
-    thumbnail: "/projects/cognition-ai.jpg",
+    thumbnail: "https://assets10.lottiefiles.com/packages/lf20_4kx2q32n.json", // Lottie animation URL
     images: [],
     tags: ["AI", "Developer Tools", "Contract"],
     technologies: ["TypeScript", "React"],
     year: "2026",
     featured: false,
-    type: "video" as const,
+    type: "lottie" as const,
     videoUrl: "https://example.com/cognition-ai.mp4",
     links: { caseStudy: "#cognition-ai" },
     order: 5,
@@ -119,13 +120,13 @@ const figmaProjects = [
     title: "Bringing autofill to macOS",
     slug: "1password-autofill",
     description: "1Password macOS autofill feature",
-    thumbnail: "/projects/1password-autofill.jpg",
+    thumbnail: "https://assets10.lottiefiles.com/packages/lf20_5mhygk.json", // Lottie animation URL
     images: [],
     tags: ["macOS", "Security", "Product"],
     technologies: ["Swift", "AppKit"],
     year: "2025",
     featured: false,
-    type: "video" as const,
+    type: "lottie" as const,
     videoUrl: "https://example.com/1password-autofill.mp4",
     links: { caseStudy: "#1password-autofill" },
     order: 6,
@@ -137,13 +138,13 @@ const figmaProjects = [
     title: "Innovation management for Fortune 500s",
     slug: "earth-innovation",
     description: "Earth innovation platform",
-    thumbnail: "/projects/earth-innovation.jpg",
+    thumbnail: "https://assets10.lottiefiles.com/packages/lf20_3vbhd.json", // Lottie animation URL
     images: [],
     tags: ["Enterprise", "Innovation", "Platform"],
     technologies: ["React", "Node.js"],
     year: "2023",
     featured: false,
-    type: "video" as const,
+    type: "lottie" as const,
     videoUrl: "https://example.com/earth-innovation.mp4",
     links: { caseStudy: "#earth-innovation" },
     order: 7,
@@ -156,47 +157,28 @@ export function ProjectsSection() {
   const projects = useQuery(api.projects.queries.getProjects);
 
   // Use Figma projects as fallback when Convex data is loading or empty
-  const displayProjects = (projects && projects.length > 0) ? projects : figmaProjects;
+  const displayProjects =
+    projects && projects.length > 0 ? projects : figmaProjects;
 
   return (
-    <section
-      id="work"
-      className="py-16 md:py-20 lg:py-24"
-      aria-labelledby="work-heading"
-    >
-      <div className="mx-auto max-w-[1360px] px-6">
-        <div className="text-center mb-12">
-          <h2
-            id="work-heading"
-            className="text-h3 font-normal text-primary mb-4"
-          >
-            Selected Work
-          </h2>
-          <p className="text-body text-secondary max-w-2xl mx-auto">
-            A collection of projects I've designed and built over the years.
-          </p>
+    <section id="work" className="w-full pb-8" aria-labelledby="work-heading">
+      <div className="flex flex-col gap-6 w-full">
+        {/* 
+          Responsive grid matching Figma design:
+          - Mobile and tablet (< 1408px): Single column layout
+          - Desktop (>= 1408px): Two columns at 668px each with 24px gap
+        */}
+        <div className="grid grid-cols-1 desktop:grid-cols-[minmax(668px,1fr)_minmax(668px,1fr)] gap-x-6 gap-y-6">
+          {displayProjects.map((project) => (
+            <ProjectCard
+              key={project._id}
+              project={{
+                ...project,
+                company: project.company || "Personal Project",
+              }}
+            />
+          ))}
         </div>
-
-        {displayProjects.length === 0 ? (
-          <div className="text-center py-16">
-            <p className="text-secondary">
-              No projects yet. Check back soon!
-            </p>
-          </div>
-        ) : (
-          <div className="grid gap-6 md:grid-cols-2">
-            {displayProjects.map((project, index) => (
-              <ProjectCard
-                key={project._id}
-                project={{
-                  ...project,
-                  company: project.company || "Personal Project",
-                }}
-                priority={index === 0 && displayProjects.length > 1}
-              />
-            ))}
-          </div>
-        )}
       </div>
     </section>
   );

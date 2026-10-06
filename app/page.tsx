@@ -18,8 +18,11 @@ export default function Home() {
       <Header onChatClick={openChat} />
 
       <main className="flex-1">
-        <Hero onChatClick={openChat} />
-        <ProjectsSection />
+      
+        <div className="relative mx-auto px-6 py-6 w-full">
+          <Hero onChatClick={openChat} />
+          <ProjectsSection />
+        </div>
       </main>
 
       <Footer />

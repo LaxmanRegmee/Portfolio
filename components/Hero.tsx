@@ -1,110 +1,66 @@
 "use client";
 
-import { ArrowRight, MessageSquare } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface HeroProps {
-  onChatClick: () => void;
-}
 
 // Experience data from Figma
 const experience = [
   { year: "2026", company: "Notion", role: "Design Engineering Intern" },
   { year: "2025", company: "Bloomberg", role: "Software Engineering Intern" },
   { year: "2025", company: "1Password", role: "Product Design Intern" },
-  { year: "2024", company: "Royal Bank of Canada", role: "Software Engineering Intern" },
-  { year: "2023", company: "Onova", role: "Product Design + Engineering Intern" },
+  {
+    year: "2024",
+    company: "Royal Bank of Canada",
+    role: "Software Engineering Intern",
+  },
+  {
+    year: "2023",
+    company: "Onova",
+    role: "Product Design + Engineering Intern",
+  },
 ];
 
-export function Hero({ onChatClick }: HeroProps) {
+export function Hero({ onChatClick }: { onChatClick: () => void }) {
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen pt-16 overflow-hidden"
-      aria-labelledby="hero-heading"
-    >
-      <div className="relative mx-auto max-w-[1360px] px-6 pb-20">
-        <div className="grid lg:grid-cols-2 gap-6 lg:gap-6">
-          {/* Left Column: Hero Content */}
-          <div className="pt-12 lg:pt-20">
-            {/* Main heading - Exact from Figma: "I'm Rachel, a product designer who engineers." */}
-            <h1
-              id="hero-heading"
-              className="text-h1 text-primary mb-6 max-w-xl"
+    <section id="hero" className="px-0 w-full" aria-labelledby="hero-heading">
+      <div className="flex w-full flex-col laptop:flex-row gap-x-6 gap-y-6 pt-8 laptop:pt-[208px] pb-[32px]">
+        {/* Left Column: Title/Heading - Exact Figma: w-[668px] on desktop, full width on mobile */}
+        <div className="w-full laptop:w-[668px] flex flex-col items-start shrink-0">
+          <h1
+            id="hero-heading"
+            className=" w-full text-[40px] leading-[44px] laptop:text-[56px] laptop:leading-[61.6px] tracking-[-1.12px] max-w-175 font-hero"
+          >
+            <span className="not-italic">
+              I&apos;m Laxman, a product designer who{" "}
+            </span>
+            <span className="italic">engineers</span>
+            <span className="not-italic">.</span>
+          </h1>
+        </div>
+
+        {/* Right Column: Experience Timeline - Exact Figma: min-w-[668px], gap-[4px] */}
+        <div className="w-full laptop:flex-1 flex flex-col gap-1">
+          {experience.map((exp, index) => (
+            <div
+              key={`${exp.year}-${exp.company}-${index}`}
+              className="flex items-start gap-2 w-full"
             >
-              I&apos;m Rachel, a product designer
-              <br />
-              <span className="font-normal not-italic">who engineers.</span>
-            </h1>
-
-            {/* Subheading - Exact from Figma */}
-            <p className="text-body text-secondary max-w-xl mb-10">
-              I think deeply about people, products, and the spaces between them.
-              Currently exploring the intersection of AI & hardware.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-start gap-4 mb-16">
-              <button
-                onClick={onChatClick}
-                className={cn(
-                  "group flex items-center justify-center gap-2 rounded-sm bg-[var(--color-text-primary)] px-8 py-3",
-                  "text-button font-normal text-white hover:bg-[var(--color-text-accent)]",
-                  "transition-all duration-200 focus-visible:outline-none",
-                  "focus-visible:ring-2 focus-visible:ring-[var(--color-text-accent)] focus-visible:ring-offset-2",
-                )}
-                aria-label="Start chatting with my AI assistant"
-              >
-                <MessageSquare className="h-5 w-5" aria-hidden="true" />
-                <span className="text-button uppercase">RacheLLM</span>
-                <ArrowRight
-                  className="h-5 w-5 transition-transform group-hover:translate-x-1"
-                  aria-hidden="true"
-                />
-              </button>
-
-              <a
-                href="#work"
-                className={cn(
-                  "flex items-center justify-center gap-2 rounded-sm border border-[var(--color-text-primary)]",
-                  "px-8 py-3 text-button font-normal text-[var(--color-text-primary)]",
-                  "hover:bg-[var(--color-bg-tertiary)]",
-                  "transition-all duration-200 focus-visible:outline-none",
-                  "focus-visible:ring-2 focus-visible:ring-[var(--color-text-accent)] focus-visible:ring-offset-2",
-                )}
-              >
-                <span className="uppercase">View Work</span>
-                <ArrowRight
-                  className="h-5 w-5 transition-transform hover:translate-x-1"
-                  aria-hidden="true"
-                />
-              </a>
+              {/* Year - Exact Figma: w-[110px], Geist Mono, 15px, uppercase, secondary */}
+              <p className=" m-0 w-26 min-26 shrink-0 text-[15px] leading-[22.5px] font-normal text-secondary uppercase font-mono">
+                {exp.year}
+              </p>
+              {/* Company & Role - Exact Figma: flex-[1_0_0], gap-[8px], items-center, min-w-[400px] */}
+              <div className="flex w-full flex-1 flex-col items-start gap-0.5 max-w-[400px] laptop:flex-row laptop:items-center laptop:gap-2">
+                {/* Company - Exact Figma: w-[228px], Geist, 15px, primary */}
+                <p className="m-0 w-full max-w-57 shrink-0 text-[15px] leading-[22.5px] font-normal text-primary whitespace-nowrap font-sans">
+                  {exp.company}
+                </p>
+                {/* Role - Exact Figma: Geist, 15px, secondary, whitespace-nowrap */}
+                <p className="m-0 text-[15px]  w-full leading-[22.5px] font-normal text-secondary whitespace-nowrap font-sans">
+                  {exp.role}
+                </p>
+              </div>
             </div>
-          </div>
-
-          {/* Right Column: Experience Timeline */}
-          <div className="hidden lg:block pt-12 lg:pt-20">
-            <div className="space-y-7">
-              {experience.map((exp, index) => (
-                <div
-                  key={exp.year}
-                  className="flex items-center gap-4 pb-4 last:pb-0 border-b border-[var(--color-border-light)]"
-                >
-                  <span className="text-h4 font-medium text-primary w-24 shrink-0 uppercase">
-                    {exp.year}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-h4 font-medium text-primary truncate">
-                      {exp.company}
-                    </p>
-                    <p className="text-body text-secondary truncate">
-                      {exp.role}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

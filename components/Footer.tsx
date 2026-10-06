@@ -1,32 +1,46 @@
-import { Mail, ExternalLink, Heart } from "lucide-react";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 
+const heartIcon =
+  "https://www.figma.com/api/mcp/asset/f16c9f69-c04a-48e6-859a-16af92e227d1/6506f.svg";
+
 const socialLinks = [
-  { name: "LinkedIn", href: "https://linkedin.com/in/rachelchen", icon: FaLinkedin },
-  { name: "Email", href: "mailto:hello@rachelchen.com", icon: Mail },
-  { name: "X", href: "https://x.com/rachelchen", icon: FaTwitter },
-  { name: "GitHub", href: "https://github.com/rachelchen", icon: FaGithub },
-  { name: "Devpost", href: "https://devpost.com/rachelchen", icon: ExternalLink },
+  {
+    name: "LinkedIn",
+    href: "https://linkedin.com/in/laxmanregmi",
+    label: "Linkedin",
+  },
+  {
+    name: "Email",
+    href: "mailto:hello@laxmanregmi.com",
+    label: "EMAIL",
+    isEmail: true,
+  },
+  { name: "X", href: "https://x.com/laxmanregmi", label: "X" },
+  { name: "GitHub", href: "https://github.com/laxmanregmi", label: "Github" },
 ];
 
 export function Footer() {
   return (
     <footer
-      className="border-t border-[var(--color-border-light)] bg-white"
+      className="border-t border-border-light bg-white"
       role="contentinfo"
     >
-      <div className="mx-auto max-w-[1360px] px-6 py-4">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          {/* Left: "Designed + Coded with" + Heart + "by Rachel" - Exact from Figma */}
-          <div className="flex items-center gap-2 text-h4 font-normal text-secondary uppercase">
+      <div className="mx-auto max-w-[1360px] px-6 py-5">
+        <div className="flex flex-col md:flex-row items-start justify-between gap-6 md:gap-4">
+          {/* Left: "Designed + Coded with" + Heart + "by Laxman" - Exact from Figma */}
+          <div className="flex items-center gap-2 text-h4 font-normal text-secondary uppercase font-mono">
             <span>Designed + Coded with</span>
-            <Heart className="h-4 w-4 text-[var(--color-text-accent)]" aria-hidden="true" />
-            <span>by Rachel</span>
+            <img
+              src={heartIcon}
+              alt=""
+              className="h-[15px] w-[15px]"
+              aria-hidden="true"
+            />
+            <span>by Laxman</span>
           </div>
 
-          {/* Right: Social Links - Exact from Figma */}
-          <div className="flex items-center gap-4">
+          {/* Right: Social Links as Text - Exact from Figma */}
+          <div className="flex flex-col md:flex-row items-start md:items-start gap-4 md:gap-8">
             {socialLinks.map((social) => (
               <a
                 key={social.name}
@@ -34,16 +48,16 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  "flex items-center justify-center",
-                  "text-h4 font-normal text-secondary uppercase hover:text-accent",
-                  "transition-colors duration-200",
+                  "text-h4 font-normal uppercase font-mono transition-colors duration-200",
                   "focus-visible:outline-none focus-visible:ring-2",
                   "focus-visible:ring-[var(--color-text-accent)] focus-visible:ring-offset-2",
+                  social.isEmail
+                    ? "text-primary opacity-60 text-[16px] leading-[24px] hover:text-accent"
+                    : "text-secondary hover:text-accent",
                 )}
                 aria-label={social.name}
               >
-                <social.icon className="h-5 w-5" aria-hidden="true" />
-                <span className="sr-only">{social.name}</span>
+                {social.label}
               </a>
             ))}
           </div>
